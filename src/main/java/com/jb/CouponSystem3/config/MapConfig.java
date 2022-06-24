@@ -1,6 +1,6 @@
 package com.jb.CouponSystem3.config;
 
-import com.jb.CouponSystem3.tokenManager.Information;
+import com.jb.CouponSystem3.security.Information;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

@@ -42,7 +42,7 @@ public class AdminCompanyServiceDeletingTests implements CommandLineRunner {
             adminService.addCompany(compToDelete);
             Coupon couponToDelete = Coupon.builder().company(compToDelete).category(Category.TRAVEL).title("To delete").description("To delete").startDate(startDate).endDate(datePlus1).amount(100).price(100).image("DEL").build();
             CompanyService companyService7 = (CompanyService) loginManager.login("del@gmail.com", "del1234", ClientType.COMPANY);
-            companyService7.addCoupon(couponToDelete);
+            companyService7.addCoupon(7, couponToDelete);
         } catch (CouponSystemException e) {
             //e.printStackTrace();
             System.out.println(e);
@@ -51,16 +51,16 @@ public class AdminCompanyServiceDeletingTests implements CommandLineRunner {
         try {
             CompanyService companyService7 = (CompanyService) loginManager.login("del@gmail.com", "del1234", ClientType.COMPANY);
             System.out.println("Company#7 which has coupon#10 details before deleting the company:");
-            companyService7.getCompanyDetails();
+            companyService7.getCompanyDetails(7);
 
             //login of customer2 and purchase coupon#10 from company#6
             CustomerService customerService2 = (CustomerService) loginManager.login("moshe@gmail.com", "moshe1234", ClientType.CUSTOMER);
-            Coupon coupon = customerService2.getOneCouponById(10);
-            customerService2.purchaseCoupon(coupon);
+            Coupon coupon = customerService2.getOneCouponById(2, 10);
+            customerService2.purchaseCoupon(2, coupon);
 
             HeadlineUtils.printHeadline2("Deleting company#7 which has coupon#10 (coupon purchased by customer#2)");
             System.out.println("Customer#2 details before deleting Company#7 which has coupon#10:");
-            customerService2.getCustomerDetails();
+            customerService2.getCustomerDetails(2);
             AdminService adminService = (AdminService) loginManager.login("admin@admin.com", "admin", ClientType.ADMINISTRATOR);
             System.out.println("All companies before deletion of company#7");
             TableUtils.drawCompaniesBuffer(adminService.getAllCompanies());
@@ -70,7 +70,7 @@ public class AdminCompanyServiceDeletingTests implements CommandLineRunner {
             //To print the coupons of customer#2 who purchased coupon#10 from company#7
             System.out.println("The coupons of customer#2 who purchased coupon#10 from company#7");
             customerService2 = (CustomerService) loginManager.login("moshe@gmail.com", "moshe1234", ClientType.CUSTOMER);
-            customerService2.getCustomerDetails();
+            customerService2.getCustomerDetails(2);
             System.out.println("All the coupons list: to show that coupon#10 was deleted");
             TableUtils.drawCouponsBuffer(adminService.getAllCoupons());
 
@@ -89,12 +89,12 @@ public class AdminCompanyServiceDeletingTests implements CommandLineRunner {
             System.out.println("Customers list before deletion");
             TableUtils.drawCustomersBuffer(adminService.getAllCustomers());
             System.out.println("Coupons list before deletion(to check impact of cascade types)");//cascade.remove removed the entire coupons
-            TableUtils.drawCouponsBuffer(customerService3.getAllCoupons());
+            TableUtils.drawCouponsBuffer(customerService3.getAllCoupons(3));
             adminService.deleteCustomer(3);
             System.out.println("Customers list after deletion");
             TableUtils.drawCustomersBuffer(adminService.getAllCustomers());
             System.out.println("Coupons list after deletion(to check impact of cascade types)");//cascade.remove removed the entire coupons
-            TableUtils.drawCouponsBuffer(customerService3.getAllCoupons());
+            TableUtils.drawCouponsBuffer(customerService3.getAllCoupons(3));
             System.out.println("Checked: Customer#3 is not present in the coupon purchase table on MySQl\n");
 
             System.out.println("Trying to delete non-existing customer#20");
@@ -110,18 +110,18 @@ public class AdminCompanyServiceDeletingTests implements CommandLineRunner {
             CompanyService companyService3 = (CompanyService) loginManager.login("easyjet@gmail.com", "easyjet1234", ClientType.COMPANY);
             CustomerService customerService2 = (CustomerService) loginManager.login("moshe@gmail.com", "moshe1234", ClientType.CUSTOMER);
             System.out.println("All coupons before deleting coupon#3");
-            TableUtils.drawCouponsBuffer(customerService2.getAllCoupons());
+            TableUtils.drawCouponsBuffer(customerService2.getAllCoupons(2));
             System.out.println("Customer#2 details before deleting coupon#3 (purchased coupon#3)");
-            customerService2.getCustomerDetails();
-            companyService3.deleteCoupon(3);
+            customerService2.getCustomerDetails(2);
+            companyService3.deleteCoupon(3, 3);
             System.out.println("All coupons after delete of coupon#3");
-            TableUtils.drawCouponsBuffer(customerService2.getAllCoupons());
+            TableUtils.drawCouponsBuffer(customerService2.getAllCoupons(2));
             System.out.println("Customer#2 details after deleting coupon#3 (purchased coupon#3)");
-            customerService2.getCustomerDetails();
+            customerService2.getCustomerDetails(2);
             System.out.println("Checked: Coupon#3 is not present in the coupon purchase table on MySQl\n");
 
             System.out.println("Trying to delete non-existing coupon#20");
-            companyService3.deleteCoupon(20);
+            companyService3.deleteCoupon(3, 20);
         } catch (CouponSystemException e) {
             //e.printStackTrace();
             System.out.println(e);

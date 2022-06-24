@@ -1,5 +1,6 @@
 package com.jb.CouponSystem3.beans;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class Coupon {
 
     @ManyToOne
     //(cascade = CascadeType.REMOVE)// fails to findAll after remove
+    @JsonBackReference
     private Company company;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

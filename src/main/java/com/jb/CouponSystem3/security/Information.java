@@ -1,6 +1,5 @@
-package com.jb.CouponSystem3.tokenManager;
+package com.jb.CouponSystem3.security;
 
-import com.jb.CouponSystem3.security.ClientType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Information {
 
-    private int userId;
+    private int id;
     private ClientType type;
     private LocalDateTime time;
     private String email;

@@ -14,4 +14,6 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
     @Query(value = "SELECT `id` FROM `coupon-system3-147`.`companies` where `email`= :email", nativeQuery = true)
     int getIdByEmail(@Param("email") String email);
+
+    Company findTop1ByEmail(String email);
 }

@@ -1,5 +1,6 @@
 package com.jb.CouponSystem3.beans;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class Company {
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "company")
     @Singular
     @ToString.Exclude
+    @JsonManagedReference
     private List<Coupon> coupons = new ArrayList<>();
 
 }

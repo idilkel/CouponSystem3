@@ -2,6 +2,7 @@ package com.jb.CouponSystem3.clr.on;
 
 import com.jb.CouponSystem3.beans.Company;
 import com.jb.CouponSystem3.beans.Customer;
+import com.jb.CouponSystem3.exceptions.CouponSecurityException;
 import com.jb.CouponSystem3.exceptions.CouponSystemException;
 import com.jb.CouponSystem3.security.ClientType;
 import com.jb.CouponSystem3.security.LoginManager;
@@ -33,7 +34,7 @@ public class AdminServiceTests implements CommandLineRunner {
         System.out.println("Should be true");
         try {
             System.out.println(adminService.login("admin@admin.com", "admin"));
-        } catch (CouponSystemException e) {
+        } catch (CouponSecurityException e) {
             //e.printStackTrace();
             System.out.println(e);
         }
@@ -41,14 +42,14 @@ public class AdminServiceTests implements CommandLineRunner {
         System.out.println("Wrong email:");
         try {
             System.out.println(adminService.login("wrong@admin.com", "admin"));
-        } catch (CouponSystemException e) {
+        } catch (CouponSecurityException e) {
             //e.printStackTrace();
             System.out.println(e);
         }
         System.out.println("Wrong password:");
         try {
             System.out.println(adminService.login("admin@admin.com", "wrong"));
-        } catch (CouponSystemException e) {
+        } catch (CouponSecurityException e) {
             //e.printStackTrace();
             System.out.println(e);
         }

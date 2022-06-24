@@ -3,19 +3,25 @@ package com.jb.CouponSystem3.services;
 import com.jb.CouponSystem3.beans.Company;
 import com.jb.CouponSystem3.beans.Coupon;
 import com.jb.CouponSystem3.beans.Customer;
+import com.jb.CouponSystem3.exceptions.CouponSecurityException;
 import com.jb.CouponSystem3.exceptions.CouponSystemException;
 import com.jb.CouponSystem3.exceptions.ErrMsg;
+import com.jb.CouponSystem3.exceptions.SecMsg;
+import com.jb.CouponSystem3.security.TokenManager;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AdminServiceImpl extends ClientService implements AdminService {
+    private final TokenManager tokenManager;
 
     @Override
-    public boolean login(String email, String password) throws CouponSystemException {
+    public boolean login(String email, String password) throws CouponSecurityException {
         if (!(email.equals("admin@admin.com") && password.equals("admin"))) {
-            throw new CouponSystemException(ErrMsg.LOGIN_EXCEPTION);
+            throw new CouponSecurityException(SecMsg.EMAIL_OR_PASSWORD_INCORRECT);
         }
         return true;
     }

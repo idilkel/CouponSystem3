@@ -24,6 +24,7 @@ public class ExpiredCouponsRemoval {
     public void dailyDeleteExpiredCoupons() {
         if (LocalTime.now().getHour() == 0 & LocalTime.now().getMinute() == 0) { //LocalTime.MIDNIGHT might require exact time with seconds
             for (Coupon coupon : couponRepository.findByEndDateBefore(Date.valueOf(LocalDate.now()))) {
+                couponRepository.deleteCouponPurchase(coupon.getId());
                 couponRepository.deleteById(coupon.getId());
                 System.out.printf("Coupon#%d was deleted", coupon.getId());
                 System.out.println();

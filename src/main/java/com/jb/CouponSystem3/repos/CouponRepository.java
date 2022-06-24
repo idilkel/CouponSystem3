@@ -17,8 +17,6 @@ import java.util.Set;
 public interface CouponRepository extends JpaRepository<Coupon, Integer> {
     List<Coupon> findByCompany(Company company);
 
-    //Should work by smart dialect only too
-    //@Query(value = "SELECT * FROM `coupon-system3-147`.coupons where company_id= :companyId;", nativeQuery = true)
     List<Coupon> findByCompanyId(@Param("companyId") int companyId);
 
     @Query(value = "SELECT * FROM `coupon-system3-147`.coupons where id= :couponId and company_id= :companyId", nativeQuery = true)
@@ -36,8 +34,10 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
             "where cvc.customer_id= :customerId", nativeQuery = true)
     Set<Coupon> findByCustomerId(@Param("customerId") int customerId);
 
-    @Query(value = "select Exists (SELECT * FROM `coupon-system3-147`.coupons where `title`= :title and `company_id`= :companyId) as res;", nativeQuery = true)
-    int existsByTitleAndCompanyId(@Param("title") String title, @Param("companyId") int companyId);
+    boolean existsByTitleAndCompanyId(@Param("title") String title, @Param("companyId") int companyId);
+
+//    @Query(value = "select Exists (SELECT * FROM `coupon-system3-147`.coupons where `title`= :title and `company_id`= :companyId) as res;", nativeQuery = true)
+//    int existsByTitleAndCompanyId(@Param("title") String title, @Param("companyId") int companyId);
 
     boolean existsByTitle(String title);
 

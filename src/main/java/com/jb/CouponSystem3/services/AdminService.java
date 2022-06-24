@@ -3,13 +3,14 @@ package com.jb.CouponSystem3.services;
 import com.jb.CouponSystem3.beans.Company;
 import com.jb.CouponSystem3.beans.Coupon;
 import com.jb.CouponSystem3.beans.Customer;
+import com.jb.CouponSystem3.exceptions.CouponSecurityException;
 import com.jb.CouponSystem3.exceptions.CouponSystemException;
 
 import java.util.List;
 
 public interface AdminService {
 
-    boolean login(String email, String password) throws CouponSystemException;
+    boolean login(String email, String password) throws CouponSecurityException;
 
     void addCompany(Company company) throws CouponSystemException;
 

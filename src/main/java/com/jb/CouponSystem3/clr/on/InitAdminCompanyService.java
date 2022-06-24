@@ -111,17 +111,17 @@ public class InitAdminCompanyService implements CommandLineRunner {
                     .startDate(expiredStartDate).endDate(expiredEndDate).amount(10).price(20).image("EXPR").build();
 
             CompanyService companyService1 = (CompanyService) loginManager.login("nike@gmail.com", "nike1234", ClientType.COMPANY);
-            companyService1.addCoupon(coup1);
+            companyService1.addCoupon(1, coup1);
             CompanyService companyService2 = (CompanyService) loginManager.login("pizza@gmail.com", "pizza1234", ClientType.COMPANY);
-            companyService2.addCoupon(coup2);
+            companyService2.addCoupon(2, coup2);
             CompanyService companyService3 = (CompanyService) loginManager.login("easyjet@gmail.com", "easyjet1234", ClientType.COMPANY);
-            companyService3.addCoupon(coup3);
-            companyService3.addCoupon(coup5);
-            companyService3.addCoupon(coup6);
+            companyService3.addCoupon(3, coup3);
+            companyService3.addCoupon(3, coup5);
+            companyService3.addCoupon(3, coup6);
             CompanyService companyService4 = (CompanyService) loginManager.login("cinema@gmail.com", "cinema1234", ClientType.COMPANY);
-            companyService4.addCoupon(coup4);
+            companyService4.addCoupon(4, coup4);
             CompanyService companyService5 = (CompanyService) loginManager.login("apple@gmail.com", "apple1234", ClientType.COMPANY);
-            companyService5.addCoupon(expCoup);
+            companyService5.addCoupon(5, expCoup);
             TableUtils.drawCouponsBuffer(adminService.getAllCoupons());
 
         } catch (
