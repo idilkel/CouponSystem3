@@ -5,14 +5,12 @@ import com.jb.CouponSystem3.beans.Company;
 import com.jb.CouponSystem3.beans.Coupon;
 import com.jb.CouponSystem3.exceptions.CouponSecurityException;
 import com.jb.CouponSystem3.exceptions.CouponSystemException;
-import com.jb.CouponSystem3.security.LoginRequest;
 import com.jb.CouponSystem3.security.TokenManager;
 import com.jb.CouponSystem3.services.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,15 +18,16 @@ import java.util.UUID;
 @RequestMapping("api/companies")
 @RequiredArgsConstructor
 public class CompanyControllers {
+
     private final CompanyService companyService;
     private final TokenManager tokenManager;
 
-    // TODO: 04/06/2022 Do we need it? If yes, which verb?
-    boolean login(@Valid @RequestBody LoginRequest loginRequest) throws CouponSecurityException {
-        String email = loginRequest.getEmail();
-        String password = loginRequest.getPassword();
-        return companyService.login(email, password);
-    }
+    // Not used from here but from LoginController
+//    boolean login(@Valid @RequestBody LoginRequest loginRequest) throws CouponSecurityException {
+//        String email = loginRequest.getEmail();
+//        String password = loginRequest.getPassword();
+//        return companyService.login(email, password);
+//    }
 
     @PostMapping("coupons")
     @ResponseStatus(HttpStatus.CREATED)

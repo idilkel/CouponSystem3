@@ -15,7 +15,7 @@ import javax.validation.constraints.Email;
 public class LoginRequest {
     @Email
     private String email;
-    @Length(min = 3, max = 8)
+    @Length(min = 3, max = 12)
     private String password;
 
     private ClientType type;
