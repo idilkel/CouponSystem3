@@ -32,6 +32,7 @@ public class CompanyServiceTests implements CommandLineRunner {
     Date startDate = Date.valueOf(LocalDate.now());
     Date datePlus1 = Date.valueOf(LocalDate.now().plusWeeks(1));
     Date datePlus2 = Date.valueOf(LocalDate.now().plusWeeks(2));
+    Date datePlus3 = Date.valueOf(LocalDate.now().plusWeeks(3));
 
 
     @Override
@@ -65,20 +66,20 @@ public class CompanyServiceTests implements CommandLineRunner {
 
         HeadlineUtils.printHeadline("Updating Coupon#2");
         try {
-            Coupon coupToUpdate = companyService.getOneCouponById(2, 2);
+            Coupon coupToUpdate = companyService.getOneCouponByIdAndCouponId(2, 2);
             System.out.println("Coupon#2 before update:");
             TableUtils.drawOneCouponBuffer(coupToUpdate);
             coupToUpdate.setCategory(Category.FASHION);
             coupToUpdate.setTitle("100NIS discount");
             coupToUpdate.setDescription("Pay 100NIS for 200NIS value");
             coupToUpdate.setStartDate(datePlus1);
-            coupToUpdate.setEndDate(datePlus2);
+            coupToUpdate.setEndDate(datePlus3);
             coupToUpdate.setAmount(200);
             coupToUpdate.setPrice(100);
             coupToUpdate.setImage("XOXO");
             companyService.updateCoupon(2, 2, coupToUpdate);
             System.out.println("Coupon#2 after update:");
-            TableUtils.drawOneCouponBuffer(companyService.getOneCouponById(2, 2));
+            TableUtils.drawOneCouponBuffer(companyService.getOneCouponByIdAndCouponId(2, 2));
 
             System.out.println("Trying to update coupon id:");
             coupToUpdate.setId(4);
@@ -89,7 +90,7 @@ public class CompanyServiceTests implements CommandLineRunner {
         }
 
         try {
-            Coupon coupToUpdate = companyService.getOneCouponById(2, 2);
+            Coupon coupToUpdate = companyService.getOneCouponByIdAndCouponId(2, 2);
             System.out.println("Trying to update coupon company id from 2 to 5:");
             Company company = coupToUpdate.getCompany();
             company.setId(5);
@@ -177,7 +178,7 @@ public class CompanyServiceTests implements CommandLineRunner {
         try {
             HeadlineUtils.printHeadline2("Trying to update the coupon id of coupon#5");
 
-            Coupon couponToUpdate = companyService3.getOneCouponById(3, 5);
+            Coupon couponToUpdate = companyService3.getOneCouponByIdAndCouponId(3, 5);
             couponToUpdate.setId(20);
             companyService3.updateCoupon(3, 5, couponToUpdate);
         } catch (CouponSystemException e) {
@@ -188,7 +189,7 @@ public class CompanyServiceTests implements CommandLineRunner {
         try {
             HeadlineUtils.printHeadline2("Trying to update the company id of coupon#5 from 3 to 1");
 
-            Coupon couponToUpdate = companyService3.getOneCouponById(3, 5);
+            Coupon couponToUpdate = companyService3.getOneCouponByIdAndCouponId(3, 5);
             Company com3 = companyService3.getCompanyWoDetails(3);
             com3.setId(1);
             couponToUpdate.setCompany(com3);

@@ -112,7 +112,7 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
 //        if (couponRepository.getById(couponId).getCompany().getId() != companyId) {//a company can get only the coupon of itself
 //            throw new CouponSystemException(ErrMsg.COMPANY_ID_DOESNT_MATCH);
 //        }
-        return couponRepository.getByCompanyIdAndCouponId(couponId, companyId);
+        return couponRepository.findByIdAndCompanyId(couponId, companyId);
     }
 
     @Override
@@ -123,7 +123,7 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
     // TODO: 07/05/2022
     @Override
     public List<Coupon> getCompanyCoupons(int companyId, Category category) {
-        return couponRepository.findAllByCompanyIdAndCategory(companyId, category.name().toString());
+        return couponRepository.findAllByCompanyIdAndCategory(companyId, category);
     }
 
     @Override

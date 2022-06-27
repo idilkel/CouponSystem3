@@ -24,7 +24,8 @@ public class Company {
     private String email;
     @Column(nullable = false, length = 45)
     private String password;
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "company")
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "company")
+//    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "company")
     @Singular
     @ToString.Exclude
     @JsonManagedReference

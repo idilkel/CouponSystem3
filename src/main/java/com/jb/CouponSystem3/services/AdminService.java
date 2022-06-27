@@ -32,6 +32,6 @@ public interface AdminService {
 
     Customer getOneCustomer(int customerId) throws CouponSystemException;
 
-    //  A company shouldn't get other companies coupons (therefor this ability was transferred to the admin only)
+    //  A company shouldn't get other companies coupons (therefore this ability was transferred to the admin only)
     List<Coupon> getAllCoupons();
 }

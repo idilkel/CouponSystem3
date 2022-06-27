@@ -1,5 +1,6 @@
 package com.jb.CouponSystem3.repos;
 
+import com.jb.CouponSystem3.beans.Category;
 import com.jb.CouponSystem3.beans.Company;
 import com.jb.CouponSystem3.beans.Coupon;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,11 +20,15 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 
     List<Coupon> findByCompanyId(@Param("companyId") int companyId);
 
-    @Query(value = "SELECT * FROM `coupon-system3-147`.coupons where id= :couponId and company_id= :companyId", nativeQuery = true)
-    Coupon getByCompanyIdAndCouponId(@Param("couponId") int couponId, @Param("companyId") int companyId);
+//    @Query(value = "SELECT * FROM `coupon-system3-147`.coupons where id= :couponId and company_id= :companyId", nativeQuery = true)
+//    Coupon getByCompanyIdAndCouponId(@Param("couponId") int couponId, @Param("companyId") int companyId);
 
-    @Query(value = "SELECT * FROM `coupon-system3-147`.coupons where company_id= :companyId and category= :categoryName", nativeQuery = true)
-    List<Coupon> findAllByCompanyIdAndCategory(@Param("companyId") int companyId, @Param("categoryName") String categoryName);
+    Coupon findByIdAndCompanyId(int couponId, int companyId);
+
+//    @Query(value = "SELECT * FROM `coupon-system3-147`.coupons where company_id= :companyId and category= :categoryName", nativeQuery = true)
+//    List<Coupon> findAllByCompanyIdAndCategory(@Param("companyId") int companyId, @Param("categoryName") String categoryName);
+
+    List<Coupon> findAllByCompanyIdAndCategory(int companyId, Category categoryName);
 
     @Query(value = "SELECT * FROM `coupon-system3-147`.coupons where company_id= :companyId and price<= :maxPrice", nativeQuery = true)
     List<Coupon> findAllByCompanyIdAndMaxPrice(@Param("companyId") int companyId, @Param("maxPrice") double maxPrice);

@@ -2,7 +2,7 @@ package com.jb.CouponSystem3.jobs;
 
 import com.jb.CouponSystem3.beans.Coupon;
 import com.jb.CouponSystem3.repos.CouponRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -11,12 +11,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Component
+@RequiredArgsConstructor
 public class ExpiredCouponsRemoval {
 
     public static final int SLEEP_TIME = 1000 * 30;
 
-    @Autowired
-    public CouponRepository couponRepository;
+    public final CouponRepository couponRepository;
 
     //In-order to check the expired coupon deletion set the hour and minute in the if on line 25 to the current hour and minute; rerun; and wait half a minute
 

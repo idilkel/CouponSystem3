@@ -37,7 +37,7 @@ public class AdminCompanyServiceDeletingTests implements CommandLineRunner {
 
         try {
             AdminService adminService = (AdminService) loginManager.login("admin@admin.com", "admin", ClientType.ADMINISTRATOR);
-            HeadlineUtils.printHeadline2("Adding company#7 and coupon#8 for the delete test:");
+            HeadlineUtils.printHeadline2("Adding company#7 and coupon#10 for the delete test:");
             Company compToDelete = Company.builder().name("To Delete").email("del@gmail.com").password("del1234").build();
             adminService.addCompany(compToDelete);
             Coupon couponToDelete = Coupon.builder().company(compToDelete).category(Category.TRAVEL).title("To delete").description("To delete").startDate(startDate).endDate(datePlus1).amount(100).price(100).image("DEL").build();
@@ -86,14 +86,16 @@ public class AdminCompanyServiceDeletingTests implements CommandLineRunner {
             HeadlineUtils.printHeadline2("Deleting customer#3 which has coupon#1,2,4");
             AdminService adminService = (AdminService) loginManager.login("admin@admin.com", "admin", ClientType.ADMINISTRATOR);
             CustomerService customerService3 = (CustomerService) loginManager.login("shalom@gmail.com", "shalom1234", ClientType.CUSTOMER);
+            System.out.println("Customer#3 details");
+            TableUtils.drawOneCustomerWithCouponsBuffer(customerService3.getOneCustomer(3));
             System.out.println("Customers list before deletion");
             TableUtils.drawCustomersBuffer(adminService.getAllCustomers());
-            System.out.println("Coupons list before deletion(to check impact of cascade types)");//cascade.remove removed the entire coupons
+            System.out.println("Coupons list before deletion(to check impact of cascade types)");
             TableUtils.drawCouponsBuffer(customerService3.getAllCoupons(3));
             adminService.deleteCustomer(3);
             System.out.println("Customers list after deletion");
             TableUtils.drawCustomersBuffer(adminService.getAllCustomers());
-            System.out.println("Coupons list after deletion(to check impact of cascade types)");//cascade.remove removed the entire coupons
+            System.out.println("Coupons list after deletion(to check impact of cascade types)");//the purchases are removed with deletion of the customer
             TableUtils.drawCouponsBuffer(customerService3.getAllCoupons(3));
             System.out.println("Checked: Customer#3 is not present in the coupon purchase table on MySQl\n");
 

@@ -95,7 +95,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
         if (!customerRepository.existsById(customerId)) {
             throw new CouponSystemException(ErrMsg.ID_DOES_NOT_EXIST_EXCEPTION);
         }
-        customerRepository.deleteById(customerId);
+        customerRepository.deleteById(customerId);//the coupons of the customer are deleted with him (checked)
     }
 
     @Override

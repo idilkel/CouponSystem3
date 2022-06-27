@@ -59,7 +59,7 @@ public class CompanyControllers {
     @GetMapping("coupons/{couponId}")
     Coupon getOneCouponById(@RequestHeader("Authorization") UUID token, @PathVariable int couponId) throws CouponSystemException, CouponSecurityException {
         int companyId = tokenManager.getUserId(token);
-        return companyService.getOneCouponById(companyId, couponId);
+        return companyService.getOneCouponByIdAndCouponId(companyId, couponId);
     }
 
     @GetMapping("coupons2/{couponId}")

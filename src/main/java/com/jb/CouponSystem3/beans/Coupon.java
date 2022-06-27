@@ -45,7 +45,7 @@ public class Coupon {
     @Column(nullable = false, length = 45)
     private String image;
 
-    //to order by id
+    //For comparison of the set on a unique base and to print coupon lists ordered by coupon id
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
