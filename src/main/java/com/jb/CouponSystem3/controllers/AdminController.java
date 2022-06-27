@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/admin")
@@ -20,7 +21,7 @@ import java.util.List;
 public class AdminController extends ClientController {
     private final AdminService adminService;
 
-    // TODO: 04/06/2022 Do we need it? If yes, which verb?
+    // TODO: Should be deleted from ClientController too. It is in LoginController
     @Override
     public boolean login(@Valid @RequestBody LoginRequest loginRequest) throws CouponSecurityException {
         String email = loginRequest.getEmail();
@@ -31,63 +32,63 @@ public class AdminController extends ClientController {
 
     @PostMapping("companies")
     @ResponseStatus(HttpStatus.CREATED)
-    void addCompany(@RequestBody Company company) throws CouponSystemException {
+    void addCompany(@RequestHeader("Authorization") UUID token, @RequestBody Company company) throws CouponSystemException {
         adminService.addCompany(company);
     }
 
     @PutMapping("company/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void updateCompany(@PathVariable int id, @RequestBody Company company) throws CouponSystemException {
+    void updateCompany(@RequestHeader("Authorization") UUID token, @PathVariable int id, @RequestBody Company company) throws CouponSystemException {
         adminService.updateCompany(id, company);
     }
 
     @DeleteMapping("companies/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteCompany(@PathVariable int id) throws CouponSystemException {
+    void deleteCompany(@RequestHeader("Authorization") UUID token, @PathVariable int id) throws CouponSystemException {
         adminService.deleteCompany(id);
     }
 
     @GetMapping("companies")
-    List<Company> getAllCompanies() {
+    List<Company> getAllCompanies(@RequestHeader("Authorization") UUID token) {
         return adminService.getAllCompanies();
     }
 
     @GetMapping("companies/{id}")
-    Company getOneCompany(@PathVariable int id) throws CouponSystemException {
+    Company getOneCompany(@RequestHeader("Authorization") UUID token, @PathVariable int id) throws CouponSystemException {
         return adminService.getOneCompany(id);
 
     }
 
     @PostMapping("customers")
     @ResponseStatus(HttpStatus.CREATED)
-    void addCustomer(@RequestBody Customer customer) throws CouponSystemException {
+    void addCustomer(@RequestHeader("Authorization") UUID token, @RequestBody Customer customer) throws CouponSystemException {
         adminService.addCustomer(customer);
     }
 
     @PutMapping("customers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void updateCustomer(@PathVariable int id, @RequestBody Customer customer) throws CouponSystemException {
+    void updateCustomer(@RequestHeader("Authorization") UUID token, @PathVariable int id, @RequestBody Customer customer) throws CouponSystemException {
         adminService.updateCustomer(id, customer);
     }
 
     @DeleteMapping("customers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteCustomer(@PathVariable int id) throws CouponSystemException {
+    void deleteCustomer(@RequestHeader("Authorization") UUID token, @PathVariable int id) throws CouponSystemException {
         adminService.deleteCustomer(id);
     }
 
     @GetMapping("customers")
-    List<Customer> getAllCustomers() {
+    List<Customer> getAllCustomers(@RequestHeader("Authorization") UUID token) {
         return adminService.getAllCustomers();
     }
 
     @GetMapping("customers/{id}")
-    Customer getOneCustomer(@PathVariable int id) throws CouponSystemException {
+    Customer getOneCustomer(@RequestHeader("Authorization") UUID token, @PathVariable int id) throws CouponSystemException {
         return adminService.getOneCustomer(id);
     }
 
     @GetMapping("coupons/{id}")
-    List<Coupon> getAllCoupons() {
+    List<Coupon> getAllCoupons(@RequestHeader("Authorization") UUID token) {
         return adminService.getAllCoupons();
     }
 }
