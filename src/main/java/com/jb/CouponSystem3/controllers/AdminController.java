@@ -3,9 +3,8 @@ package com.jb.CouponSystem3.controllers;
 import com.jb.CouponSystem3.beans.Company;
 import com.jb.CouponSystem3.beans.Coupon;
 import com.jb.CouponSystem3.beans.Customer;
-import com.jb.CouponSystem3.exceptions.CouponSecurityException;
 import com.jb.CouponSystem3.exceptions.CouponSystemException;
-import com.jb.CouponSystem3.security.LoginRequest;
+import com.jb.CouponSystem3.security.*;
 import com.jb.CouponSystem3.services.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,16 +17,23 @@ import java.util.UUID;
 @RestController
 @RequestMapping("api/admin")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class AdminController extends ClientController {
     private final AdminService adminService;
+    private final LoginManager loginManager;
+    private final TokenManager tokenManager;
 
+    //todo: ask Kobi to do Login controller instead of clientcontroller - the login should return a uuid and not boolean
     // TODO: Should be deleted from ClientController too. It is in LoginController
     @Override
-    public boolean login(@Valid @RequestBody LoginRequest loginRequest) throws CouponSecurityException {
+    @PostMapping("login")
+    @ResponseStatus(HttpStatus.CREATED)
+    public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) {
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
-
-        return adminService.login(email, password);
+        ClientType type = loginRequest.getType();
+        UUID token = loginManager.loginUUID(email, password, type);
+        return new LoginResponse(token);
     }
 
     @PostMapping("companies")
@@ -87,7 +93,7 @@ public class AdminController extends ClientController {
         return adminService.getOneCustomer(id);
     }
 
-    @GetMapping("coupons/{id}")
+    @GetMapping("coupons")
     List<Coupon> getAllCoupons(@RequestHeader("Authorization") UUID token) {
         return adminService.getAllCoupons();
     }

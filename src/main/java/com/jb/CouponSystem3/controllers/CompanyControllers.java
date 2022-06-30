@@ -5,29 +5,37 @@ import com.jb.CouponSystem3.beans.Company;
 import com.jb.CouponSystem3.beans.Coupon;
 import com.jb.CouponSystem3.exceptions.CouponSecurityException;
 import com.jb.CouponSystem3.exceptions.CouponSystemException;
-import com.jb.CouponSystem3.security.TokenManager;
+import com.jb.CouponSystem3.security.*;
 import com.jb.CouponSystem3.services.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("api/companies")
 @RequiredArgsConstructor
-public class CompanyControllers {
+@CrossOrigin(origins = "*")
+public class CompanyControllers extends ClientController {
 
     private final CompanyService companyService;
     private final TokenManager tokenManager;
+    private final LoginManager loginManager;
 
-    // Not used from here but from LoginController
-//    boolean login(@Valid @RequestBody LoginRequest loginRequest) throws CouponSecurityException {
-//        String email = loginRequest.getEmail();
-//        String password = loginRequest.getPassword();
-//        return companyService.login(email, password);
-//    }
+    // TODO: 30/06/2022 Should it really extend ClientController?
+    @Override
+    @PostMapping("login")
+    @ResponseStatus(HttpStatus.CREATED)
+    public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) {
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
+        ClientType type = loginRequest.getType();
+        UUID token = loginManager.loginUUID(email, password, type);
+        return new LoginResponse(token);
+    }
 
     @PostMapping("coupons")
     @ResponseStatus(HttpStatus.CREATED)
@@ -75,18 +83,18 @@ public class CompanyControllers {
     }
 
     @GetMapping("coupons/category")
-    List<Coupon> getCompanyCoupons(@RequestHeader("Authorization") UUID token, @RequestParam Category category) throws CouponSecurityException {
+    List<Coupon> getCompanyCouponsByCategory(@RequestHeader("Authorization") UUID token, @RequestParam Category category) throws CouponSecurityException {
         int companyId = tokenManager.getUserId(token);
         return companyService.getCompanyCoupons(companyId, category);
     }
 
     @GetMapping("coupons/maxPrice")
-    List<Coupon> getCompanyCoupons(@RequestHeader("Authorization") UUID token, @RequestParam double maxPrice) throws CouponSecurityException {
+    List<Coupon> getCompanyCouponsByMaxPrice(@RequestHeader("Authorization") UUID token, @RequestParam double maxPrice) throws CouponSecurityException {
         int companyId = tokenManager.getUserId(token);
         return companyService.getCompanyCoupons(companyId, maxPrice);
     }
 
-    @GetMapping("coupons2/details")
+    @GetMapping("details")
     Company getCompanyDetails(@RequestHeader("Authorization") UUID token) throws CouponSystemException, CouponSecurityException {
         int companyId = tokenManager.getUserId(token);
         return companyService.getCompanyDetails(companyId);

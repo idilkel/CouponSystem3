@@ -26,7 +26,8 @@ public class LoginManager {
             switch (clientType.name()) {
                 case "ADMINISTRATOR":
                     if (adminService.login(email, password)) {//If wrong, exception thrown
-                        return UUID.randomUUID();
+                        UUID token = tokenManager.add(email, password, clientType);
+                        return token;
                     }
                     break;
                 case "COMPANY":

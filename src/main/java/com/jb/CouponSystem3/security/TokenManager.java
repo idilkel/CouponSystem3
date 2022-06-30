@@ -5,6 +5,7 @@ import com.jb.CouponSystem3.exceptions.SecMsg;
 import com.jb.CouponSystem3.repos.CompanyRepository;
 import com.jb.CouponSystem3.repos.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -44,6 +45,10 @@ public class TokenManager {
 
         UUID token = UUID.randomUUID();
         map.put(token, information);
+        // TODO: 30/06/2022 Delete this print
+        //for test
+        System.out.println(map);
+        System.out.println("----------------------");
         return token;
     }
 
@@ -57,6 +62,20 @@ public class TokenManager {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
         }
         return information.getId();
+    }
+
+//    //the same id can be to a company or a customer
+//    public ClientType getType(UUID token) throws CouponSecurityException {
+//        Information information = map.get(token);
+//        if (information == null) {
+//            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
+//        }
+//        return information.getType();
+//    }
+
+    @Scheduled(fixedRate = 1000 * 60)
+    public void deleteExpiredTokenOver30Minutes() {
+        map.entrySet().removeIf(ins -> ins.getValue().getTime().isBefore(LocalDateTime.now().minusMinutes(30)));
     }
 }
 
