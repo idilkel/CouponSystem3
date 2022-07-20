@@ -23,21 +23,22 @@ public class LoginManager {
 
     public UUID loginUUID(String email, String password, ClientType clientType) {
         try {
-            switch (clientType.name()) {
-                case "ADMINISTRATOR":
+            switch (clientType) {
+                case ADMINISTRATOR:
                     if (adminService.login(email, password)) {//If wrong, exception thrown
                         UUID token = tokenManager.add(email, password, clientType);
+                        ClientType type = tokenManager.getType(token);
                         return token;
                     }
                     break;
-                case "COMPANY":
+                case COMPANY:
                     if (companyService.login(email, password)) {//If wrong, exception thrown
 //                    CompanyService companyService = ctx.getBean(CompanyService.class);
 //                        System.out.println(companyService.login(email, password));//If wrong, exception thrown; Prints true on right login
                         UUID token = tokenManager.add(email, password, clientType);
                         return token;
                     }
-                case "CUSTOMER":
+                case CUSTOMER:
                     if (customerService.login(email, password)) {//If wrong, exception thrown;
 //                    CustomerService customerService = ctx.getBean(CustomerService.class);
 //                    System.out.println(customerService.login(email, password));//If wrong, exception thrown; Prints true on right login

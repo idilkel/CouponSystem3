@@ -64,6 +64,14 @@ public class TokenManager {
         return information.getId();
     }
 
+    public ClientType getType(UUID token) throws CouponSecurityException {
+        Information information = map.get(token);
+        if (information == null) {
+            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
+        }
+        return information.getType();
+    }
+
 //    //the same id can be to a company or a customer
 //    public ClientType getType(UUID token) throws CouponSecurityException {
 //        Information information = map.get(token);

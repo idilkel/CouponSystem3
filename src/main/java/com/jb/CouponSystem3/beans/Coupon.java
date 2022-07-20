@@ -32,11 +32,17 @@ public class Coupon {
     private String title;
     @Column(nullable = false, length = 45)
     private String description;
-    @Column(nullable = false)
 
+    //    @JsonDeserialize(using = LocalDateDeserializer.class)
+//    @JsonSerialize(using = LocalDateSerializer.class)
+//    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(nullable = false)
     private java.sql.Date startDate;
-    @Column(nullable = false)
 
+    //    @JsonDeserialize(using = LocalDateDeserializer.class)
+//    @JsonSerialize(using = LocalDateSerializer.class)
+//    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(nullable = false)
     private java.sql.Date endDate;
     @Column(nullable = false)
     private int amount;
@@ -44,6 +50,19 @@ public class Coupon {
     private double price;
     @Column(nullable = false, length = 45)
     private String image;
+
+    // TODO: 05/07/2022 Remove payload CTOR
+//    public Coupon(CouponPayLoad couponPayLoad) {
+//        this.company = couponPayLoad.getCompany();
+//        this.category = couponPayLoad.getCategory();
+//        this.title = couponPayLoad.getTitle();
+//        this.description = couponPayLoad.getDescription();
+//        this.startDate = couponPayLoad.getStartDate();
+//        this.endDate = couponPayLoad.getEndDate();
+//        this.amount = couponPayLoad.getAmount();
+//        this.price = couponPayLoad.getPrice();
+//        this.image = couponPayLoad.getImage();
+//    }
 
     //For comparison of the set on a unique base and to print coupon lists ordered by coupon id
     @Override

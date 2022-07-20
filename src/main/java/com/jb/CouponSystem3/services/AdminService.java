@@ -12,9 +12,9 @@ public interface AdminService {
 
     boolean login(String email, String password) throws CouponSecurityException;
 
-    void addCompany(Company company) throws CouponSystemException;
+    Company addCompany(Company company) throws CouponSystemException;
 
-    void updateCompany(int companyId, Company company) throws CouponSystemException;
+    Company updateCompany(int companyId, Company company) throws CouponSystemException;
 
     void deleteCompany(int companyId) throws CouponSystemException;
 
@@ -22,9 +22,9 @@ public interface AdminService {
 
     Company getOneCompany(int companyId) throws CouponSystemException;
 
-    void addCustomer(Customer customer) throws CouponSystemException;
+    Customer addCustomer(Customer customer) throws CouponSystemException;
 
-    void updateCustomer(int customerId, Customer customer) throws CouponSystemException;
+    Customer updateCustomer(int customerId, Customer customer) throws CouponSystemException;
 
     void deleteCustomer(int customerId) throws CouponSystemException;
 

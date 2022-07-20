@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     Boolean existsByEmail(String email);
@@ -19,4 +21,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     int getIdByEmail(@Param("email") String email);
 
     Customer findTop1ByEmail(String email);
+
+    List<Customer> findAllByOrderById();
 }

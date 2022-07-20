@@ -14,9 +14,9 @@ public interface CompanyService {
 
     int idCompanyService(String email, String password) throws CouponSystemException;
 
-    void addCoupon(int companyId, Coupon coupon) throws CouponSystemException;
+    Coupon addCoupon(int companyId, Coupon coupon) throws CouponSystemException;
 
-    void updateCoupon(int companyId, int couponId, Coupon coupon) throws CouponSystemException;
+    Coupon updateCoupon(int companyId, int couponId, Coupon coupon) throws CouponSystemException;
 
     void deleteCoupon(int companyId, int couponId) throws CouponSystemException;
 

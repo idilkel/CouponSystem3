@@ -27,22 +27,22 @@ public class AdminServiceImpl extends ClientService implements AdminService {
     }
 
     @Override
-    public void addCompany(Company company) throws CouponSystemException {
+    public Company addCompany(Company company) throws CouponSystemException {
         if (companyRepository.existsByNameOrEmail(company.getName(), company.getEmail())) {
             throw new CouponSystemException(ErrMsg.COMPANY_DETAILS_ALREADY_EXIST_EXCEPTION);
         }
-        companyRepository.save(company);
+        return companyRepository.save(company);
     }
 
     @Override
-    public void updateCompany(int companyId, Company company) throws CouponSystemException {
+    public Company updateCompany(int companyId, Company company) throws CouponSystemException {
         if (company.getId() != companyId) {
             throw new CouponSystemException(ErrMsg.CANT_UPDATE);
         }
         if (!(company.getName().equals(companyRepository.findById(companyId).orElseThrow(() -> new CouponSystemException(ErrMsg.ID_DOES_NOT_EXIST_EXCEPTION)).getName()))) {
             throw new CouponSystemException(ErrMsg.CANT_UPDATE);
         }
-        companyRepository.saveAndFlush(company);
+        return companyRepository.saveAndFlush(company);
     }
 
     @Override
@@ -63,7 +63,8 @@ public class AdminServiceImpl extends ClientService implements AdminService {
 
     @Override
     public List<Company> getAllCompanies() {
-        return companyRepository.findAll();
+//        return companyRepository.findAll();
+        return companyRepository.findAllByOrderById();
     }
 
     @Override
@@ -72,22 +73,22 @@ public class AdminServiceImpl extends ClientService implements AdminService {
     }
 
     @Override
-    public void addCustomer(Customer customer) throws CouponSystemException {
+    public Customer addCustomer(Customer customer) throws CouponSystemException {
         if (customerRepository.existsByIdOrEmail(customer.getId(), customer.getEmail())) {
             throw new CouponSystemException(ErrMsg.ID_OR_EMAIL_ALREADY_EXISTS_EXCEPTION);
         }
-        customerRepository.save(customer);
+        return customerRepository.save(customer);
     }
 
     @Override
-    public void updateCustomer(int customerId, Customer customer) throws CouponSystemException {
+    public Customer updateCustomer(int customerId, Customer customer) throws CouponSystemException {
         if (!customerRepository.existsById(customerId)) {
             throw new CouponSystemException(ErrMsg.ID_DOES_NOT_EXIST_EXCEPTION);
         }
         if (customerId != customer.getId()) {
             throw new CouponSystemException(ErrMsg.CANT_UPDATE);
         }
-        customerRepository.saveAndFlush(customer);
+        return customerRepository.saveAndFlush(customer);
     }
 
     @Override
@@ -100,7 +101,8 @@ public class AdminServiceImpl extends ClientService implements AdminService {
 
     @Override
     public List<Customer> getAllCustomers() {
-        return customerRepository.findAll();
+//        return customerRepository.findAll();
+        return customerRepository.findAllByOrderById();
     }
 
     @Override

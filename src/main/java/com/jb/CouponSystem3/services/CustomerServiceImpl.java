@@ -36,7 +36,7 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
     }
 
     @Override
-    public void purchaseCoupon(int customerId, Coupon coupon) throws CouponSystemException {
+    public Coupon purchaseCoupon(int customerId, Coupon coupon) throws CouponSystemException {
         if (coupon.getAmount() == 0) {
             throw new CouponSystemException(ErrMsg.NO_COUPONS_LEFT_EXCEPTION);
         }
@@ -58,7 +58,7 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
         customer.setCoupons(coupons);
         customerRepository.saveAndFlush(customer);
         coupon.setAmount(coupon.getAmount() - 1);
-        couponRepository.saveAndFlush(coupon);
+        return couponRepository.saveAndFlush(coupon);
     }
 
 

@@ -11,7 +11,7 @@ import java.util.Set;
 public interface CustomerService {
     boolean login(String email, String password) throws CouponSecurityException;
 
-    void purchaseCoupon(int customerId, Coupon coupon) throws CouponSystemException;
+    Coupon purchaseCoupon(int customerId, Coupon coupon) throws CouponSystemException;
 
     Set<Coupon> getCustomerCoupons(int customerId);
 

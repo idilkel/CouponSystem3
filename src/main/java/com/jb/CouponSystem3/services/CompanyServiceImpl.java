@@ -46,7 +46,7 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
     }
 
     @Override
-    public void addCoupon(int companyId, Coupon coupon) throws CouponSystemException {
+    public Coupon addCoupon(int companyId, Coupon coupon) throws CouponSystemException {
         if (couponRepository.existsByTitleAndCompanyId(coupon.getTitle(), companyId)) {
             throw new CouponSystemException(ErrMsg.COUPON_ALREADY_EXISTS_EXCEPTION);
         }
@@ -55,11 +55,11 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
         }
         Company company = companyRepository.findById((companyId)).orElseThrow(() -> new CouponSystemException(ErrMsg.ID_DOES_NOT_EXIST_EXCEPTION));//companyId exists - checked before
         coupon.setCompany(company);
-        couponRepository.save(coupon);
+        return couponRepository.save(coupon);
     }
 
     @Override
-    public void updateCoupon(int companyId, int couponId, Coupon coupon) throws CouponSystemException {
+    public Coupon updateCoupon(int companyId, int couponId, Coupon coupon) throws CouponSystemException {
         if (coupon.getId() != couponId) {
             throw new CouponSystemException(ErrMsg.CANT_UPDATE_ID);
         }
@@ -69,7 +69,7 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
         if ((!couponRepository.existsById(coupon.getId()))) {
             throw new CouponSystemException(ErrMsg.ID_DOES_NOT_EXIST_EXCEPTION);
         }
-        couponRepository.saveAndFlush(coupon);
+        return couponRepository.saveAndFlush(coupon);
     }
 
     @Override

@@ -30,5 +30,13 @@ public class Customer {
     @ToString.Exclude
     private Set<Coupon> coupons = new HashSet<>();
 
+    // TODO: 05/07/2022 Remove payload CTOR
+//    public Customer(CustomerPayLoad customerPayLoad) {
+//        this.firstName = customerPayLoad.getFirstName();
+//        this.lastName = customerPayLoad.getLastName();
+//        this.email = customerPayLoad.getEmail();
+//        this.password = customerPayLoad.getPassword();
+//        this.coupons = customerPayLoad.getCoupons();
+//}
 
 }

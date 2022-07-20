@@ -122,8 +122,14 @@ public class AdminCompanyServiceDeletingTests implements CommandLineRunner {
             customerService2.getCustomerDetails(2);
             System.out.println("Checked: Coupon#3 is not present in the coupon purchase table on MySQl\n");
 
+            System.out.println("-----");
+            System.out.println("Date format");
+            System.out.println(companyService3.getOneCouponById(3, 4).getEndDate());
+            System.out.println("-----");
+
             System.out.println("Trying to delete non-existing coupon#20");
             companyService3.deleteCoupon(3, 20);
+
         } catch (CouponSystemException e) {
             //e.printStackTrace();
             System.out.println(e);

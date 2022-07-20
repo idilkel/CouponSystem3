@@ -3,7 +3,9 @@ package com.jb.CouponSystem3.controllers;
 import com.jb.CouponSystem3.beans.Company;
 import com.jb.CouponSystem3.beans.Coupon;
 import com.jb.CouponSystem3.beans.Customer;
+import com.jb.CouponSystem3.exceptions.CouponSecurityException;
 import com.jb.CouponSystem3.exceptions.CouponSystemException;
+import com.jb.CouponSystem3.exceptions.SecMsg;
 import com.jb.CouponSystem3.security.*;
 import com.jb.CouponSystem3.services.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -33,63 +35,103 @@ public class AdminController extends ClientController {
         String password = loginRequest.getPassword();
         ClientType type = loginRequest.getType();
         UUID token = loginManager.loginUUID(email, password, type);
-        return new LoginResponse(token);
+        return new LoginResponse(token, email);
     }
 
     @PostMapping("companies")
     @ResponseStatus(HttpStatus.CREATED)
-    void addCompany(@RequestHeader("Authorization") UUID token, @RequestBody Company company) throws CouponSystemException {
+    void addCompany(@RequestHeader("Authorization") UUID token, @RequestBody Company company) throws CouponSystemException, CouponSecurityException {
+        int adminId = tokenManager.getUserId(token);
+        if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
+            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
+        }
         adminService.addCompany(company);
     }
 
     @PutMapping("company/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void updateCompany(@RequestHeader("Authorization") UUID token, @PathVariable int id, @RequestBody Company company) throws CouponSystemException {
+    void updateCompany(@RequestHeader("Authorization") UUID token, @PathVariable int id, @RequestBody Company company) throws CouponSystemException, CouponSecurityException {
+        int adminId = tokenManager.getUserId(token);
+        if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
+            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
+        }
         adminService.updateCompany(id, company);
     }
 
     @DeleteMapping("companies/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteCompany(@RequestHeader("Authorization") UUID token, @PathVariable int id) throws CouponSystemException {
+    void deleteCompany(@RequestHeader("Authorization") UUID token, @PathVariable int id) throws CouponSystemException, CouponSecurityException {
+        int adminId = tokenManager.getUserId(token);
+        if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
+            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
+        }
         adminService.deleteCompany(id);
     }
 
     @GetMapping("companies")
-    List<Company> getAllCompanies(@RequestHeader("Authorization") UUID token) {
+    List<Company> getAllCompanies(@RequestHeader("Authorization") UUID token) throws CouponSecurityException {
+        int adminId = tokenManager.getUserId(token);
+        if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
+            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
+        }
         return adminService.getAllCompanies();
     }
 
     @GetMapping("companies/{id}")
-    Company getOneCompany(@RequestHeader("Authorization") UUID token, @PathVariable int id) throws CouponSystemException {
+    Company getOneCompany(@RequestHeader("Authorization") UUID token, @PathVariable int id) throws CouponSystemException, CouponSecurityException {
+        int adminId = tokenManager.getUserId(token);
+        if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
+            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
+        }
         return adminService.getOneCompany(id);
 
     }
 
     @PostMapping("customers")
     @ResponseStatus(HttpStatus.CREATED)
-    void addCustomer(@RequestHeader("Authorization") UUID token, @RequestBody Customer customer) throws CouponSystemException {
+    void addCustomer(@RequestHeader("Authorization") UUID token, @RequestBody Customer customer) throws CouponSystemException, CouponSecurityException {
+        int adminId = tokenManager.getUserId(token);
+        if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
+            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
+        }
         adminService.addCustomer(customer);
     }
 
     @PutMapping("customers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void updateCustomer(@RequestHeader("Authorization") UUID token, @PathVariable int id, @RequestBody Customer customer) throws CouponSystemException {
+    void updateCustomer(@RequestHeader("Authorization") UUID token, @PathVariable int id, @RequestBody Customer customer) throws CouponSystemException, CouponSecurityException {
+        int adminId = tokenManager.getUserId(token);
+        if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
+            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
+        }
         adminService.updateCustomer(id, customer);
     }
 
     @DeleteMapping("customers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteCustomer(@RequestHeader("Authorization") UUID token, @PathVariable int id) throws CouponSystemException {
+    void deleteCustomer(@RequestHeader("Authorization") UUID token, @PathVariable int id) throws CouponSystemException, CouponSecurityException {
+        int adminId = tokenManager.getUserId(token);
+        if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
+            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
+        }
         adminService.deleteCustomer(id);
     }
 
     @GetMapping("customers")
-    List<Customer> getAllCustomers(@RequestHeader("Authorization") UUID token) {
+    List<Customer> getAllCustomers(@RequestHeader("Authorization") UUID token) throws CouponSecurityException {
+        int adminId = tokenManager.getUserId(token);
+        if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
+            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
+        }
         return adminService.getAllCustomers();
     }
 
     @GetMapping("customers/{id}")
-    Customer getOneCustomer(@RequestHeader("Authorization") UUID token, @PathVariable int id) throws CouponSystemException {
+    Customer getOneCustomer(@RequestHeader("Authorization") UUID token, @PathVariable int id) throws CouponSystemException, CouponSecurityException {
+        int adminId = tokenManager.getUserId(token);
+        if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
+            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
+        }
         return adminService.getOneCustomer(id);
     }
 
