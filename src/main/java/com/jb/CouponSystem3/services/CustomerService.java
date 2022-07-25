@@ -15,7 +15,7 @@ public interface CustomerService {
 
     Set<Coupon> getCustomerCoupons(int customerId);
 
-    Set<Coupon> getCustomerCoupons(int customerId, Category category);
+    Set<Coupon> getCustomerCouponsByCategory(int customerId, Category category);
 
     Set<Coupon> getCustomerCoupons(int customerId, double maxPrice);
 
@@ -29,4 +29,7 @@ public interface CustomerService {
 
     //To test wih one customer
     Customer getOneCustomer(int customerId) throws CouponSystemException;
+
+//    CouponPayLoad purchaseCoupon(int customerId, CouponPayLoad coupon) throws CouponSystemException;
+
 }

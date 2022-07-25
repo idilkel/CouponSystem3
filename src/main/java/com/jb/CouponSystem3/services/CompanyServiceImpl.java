@@ -7,6 +7,7 @@ import com.jb.CouponSystem3.exceptions.CouponSecurityException;
 import com.jb.CouponSystem3.exceptions.CouponSystemException;
 import com.jb.CouponSystem3.exceptions.ErrMsg;
 import com.jb.CouponSystem3.exceptions.SecMsg;
+import com.jb.CouponSystem3.models.CouponPayLoad;
 import com.jb.CouponSystem3.repos.CompanyRepository;
 import com.jb.CouponSystem3.repos.CouponRepository;
 import com.jb.CouponSystem3.security.TokenManager;
@@ -14,6 +15,7 @@ import com.jb.CouponSystem3.utils.TableUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -122,13 +124,18 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
 
     // TODO: 07/05/2022
     @Override
-    public List<Coupon> getCompanyCoupons(int companyId, Category category) {
+    public List<Coupon> getCompanyCouponsByCategory(int companyId, Category category) {
         return couponRepository.findAllByCompanyIdAndCategory(companyId, category);
     }
 
+//    @Override
+//    public List<Coupon> getCompanyCouponsByMaxPrice(int companyId, double maxPrice) {
+//        return couponRepository.findAllByCompanyIdAndMaxPrice(companyId, maxPrice);
+//    }
+
     @Override
-    public List<Coupon> getCompanyCoupons(int companyId, double maxPrice) {
-        return couponRepository.findAllByCompanyIdAndMaxPrice(companyId, maxPrice);
+    public List<Coupon> getCompanyCouponsByMaxPrice(int companyId, double maxPrice) {
+        return couponRepository.findAllByCompanyIdAndPriceLessThanEqual(companyId, maxPrice);
     }
 
     @Override
@@ -146,5 +153,53 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
         Company company = companyRepository.getById(companyId);
         return company;
     }
+
+    @Override
+    public List<CouponPayLoad> getAllCouponPayloadsByCompanyId(int companyId) {
+        List<Coupon> coupons = couponRepository.findByCompanyId(companyId);
+        List<CouponPayLoad> couponPayloads = new ArrayList<>();
+        for (Coupon coupon : coupons) {
+            couponPayloads.add(new CouponPayLoad(coupon));
+        }
+        return couponPayloads;
+    }
+
+    @Override
+    public Coupon addCouponPayloads(int companyId, Coupon coupon) throws CouponSystemException {
+        return null;
+    }
+
+    @Override
+    public Coupon updateCouponPayloads(int companyId, int couponId, Coupon coupon) throws CouponSystemException {
+        return null;
+    }
+
+    @Override
+    public Coupon getOneCouponByIdPayloads(int companyId, int couponId) throws CouponSystemException {
+        return null;
+    }
+
+    @Override
+    public Coupon getOneCouponByIdAndCouponIdPayloads(int companyId, int couponId) throws CouponSystemException {
+        return null;
+    }
+
+    @Override
+    public List<Coupon> getCompanyCouponsByCategoryPayloads(int companyId, Category category) {
+        return null;
+    }
+
+    @Override
+    public List<Coupon> getCompanyCouponsByMaxPricePayloads(int companyId, double maxPrice) {
+        return null;
+    }
+
+//    @Override
+//    public String convertIdToName(int companyId) throws CouponSystemException {
+//        Company company = companyRepository.findById(companyId).orElseThrow(() -> new CouponSystemException(ErrMsg.ID_DOES_NOT_EXIST_EXCEPTION));
+//        return company.getName();
+//    }
+
+
 }
 

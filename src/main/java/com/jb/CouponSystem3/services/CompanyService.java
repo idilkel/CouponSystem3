@@ -5,6 +5,7 @@ import com.jb.CouponSystem3.beans.Company;
 import com.jb.CouponSystem3.beans.Coupon;
 import com.jb.CouponSystem3.exceptions.CouponSecurityException;
 import com.jb.CouponSystem3.exceptions.CouponSystemException;
+import com.jb.CouponSystem3.models.CouponPayLoad;
 
 import java.util.List;
 
@@ -31,13 +32,30 @@ public interface CompanyService {
 
     List<Coupon> getCompanyCoupons(int companyId);
 
-    List<Coupon> getCompanyCoupons(int companyId, Category category);
+    List<Coupon> getCompanyCouponsByCategory(int companyId, Category category);
 
-    List<Coupon> getCompanyCoupons(int companyId, double maxPrice);
+    List<Coupon> getCompanyCouponsByMaxPrice(int companyId, double maxPrice);
 
     Company getCompanyDetails(int companyId) throws CouponSystemException;
 
     //For CompanyService tests
     Company getCompanyWoDetails(int companyId);
+
+    List<CouponPayLoad> getAllCouponPayloadsByCompanyId(int companyId);
+
+//    String convertIdToName(int companyId) throws CouponSystemException;
+
+    Coupon addCouponPayloads(int companyId, Coupon coupon) throws CouponSystemException;
+
+    Coupon updateCouponPayloads(int companyId, int couponId, Coupon coupon) throws CouponSystemException;
+
+    Coupon getOneCouponByIdPayloads(int companyId, int couponId) throws CouponSystemException;
+
+    Coupon getOneCouponByIdAndCouponIdPayloads(int companyId, int couponId) throws CouponSystemException;
+
+    List<Coupon> getCompanyCouponsByCategoryPayloads(int companyId, Category category);
+
+    List<Coupon> getCompanyCouponsByMaxPricePayloads(int companyId, double maxPrice);
+
 
 }

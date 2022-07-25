@@ -1,5 +1,6 @@
 package com.jb.CouponSystem3.services;
 
+import com.jb.CouponSystem3.beans.Category;
 import com.jb.CouponSystem3.beans.Company;
 import com.jb.CouponSystem3.beans.Coupon;
 import com.jb.CouponSystem3.beans.Customer;
@@ -7,10 +8,12 @@ import com.jb.CouponSystem3.exceptions.CouponSecurityException;
 import com.jb.CouponSystem3.exceptions.CouponSystemException;
 import com.jb.CouponSystem3.exceptions.ErrMsg;
 import com.jb.CouponSystem3.exceptions.SecMsg;
+import com.jb.CouponSystem3.models.CouponPayLoad;
 import com.jb.CouponSystem3.security.TokenManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,6 +37,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
         return companyRepository.save(company);
     }
 
+    // TODO: 25/07/2022  //Last two lines were added to check the update company on React side
     @Override
     public Company updateCompany(int companyId, Company company) throws CouponSystemException {
         if (company.getId() != companyId) {
@@ -42,6 +46,8 @@ public class AdminServiceImpl extends ClientService implements AdminService {
         if (!(company.getName().equals(companyRepository.findById(companyId).orElseThrow(() -> new CouponSystemException(ErrMsg.ID_DOES_NOT_EXIST_EXCEPTION)).getName()))) {
             throw new CouponSystemException(ErrMsg.CANT_UPDATE);
         }
+        List<Coupon> coupons = couponRepository.findByCompanyId(companyId);
+        company.setCoupons(coupons);
         return companyRepository.saveAndFlush(company);
     }
 
@@ -113,6 +119,26 @@ public class AdminServiceImpl extends ClientService implements AdminService {
     @Override
     public List<Coupon> getAllCoupons() {
         return couponRepository.findAll();
+    }
+
+    @Override
+    public List<CouponPayLoad> getAllCouponsPayloads() {
+        List<Coupon> coupons = couponRepository.findAllByOrderByCompanyId();
+        List<CouponPayLoad> couponPayloads = new ArrayList<>();
+        for (Coupon coupon : coupons) {
+            couponPayloads.add(new CouponPayLoad(coupon));
+        }
+        return couponPayloads;
+    }
+
+    @Override
+    public List<Coupon> getAllCouponsByCategory(Category category) {
+        return couponRepository.findAllByCategory(category);
+    }
+
+    @Override
+    public List<Coupon> getAllCouponsByMaxPrice(double price) {
+        return couponRepository.findAllByPriceLessThanEqual(price);
     }
 
 }

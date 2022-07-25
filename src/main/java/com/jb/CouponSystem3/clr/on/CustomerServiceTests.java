@@ -105,7 +105,7 @@ public class CustomerServiceTests implements CommandLineRunner {
             TableUtils.drawCouponsBuffer(customerService5.getCustomerCoupons(5));
 
             HeadlineUtils.printHeadline2("Get all coupons of the logged-in customer#2 from fashion category:");
-            TableUtils.drawCouponsBuffer(customerService2.getCustomerCoupons(2, Category.FASHION));
+            TableUtils.drawCouponsBuffer(customerService2.getCustomerCouponsByCategory(2, Category.FASHION));
 
             HeadlineUtils.printHeadline2("Getting all the Coupons of logged in customer#2 with maximum 50NIS");
             TableUtils.drawCouponsBuffer(customerService2.getCustomerCoupons(2, 50));

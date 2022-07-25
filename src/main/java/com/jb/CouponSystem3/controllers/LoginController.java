@@ -33,6 +33,6 @@ public class LoginController {
         String password = loginRequest.getPassword();
         ClientType type = loginRequest.getType();
         UUID token = loginManager.loginUUID(email, password, type);
-        return new LoginResponse(token, email);
+        return new LoginResponse(token, email, type);
     }
 }

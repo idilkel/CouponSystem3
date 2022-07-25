@@ -30,8 +30,11 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 
     List<Coupon> findAllByCompanyIdAndCategory(int companyId, Category categoryName);
 
-    @Query(value = "SELECT * FROM `coupon-system3-147`.coupons where company_id= :companyId and price<= :maxPrice", nativeQuery = true)
-    List<Coupon> findAllByCompanyIdAndMaxPrice(@Param("companyId") int companyId, @Param("maxPrice") double maxPrice);
+//    @Query(value = "SELECT * FROM `coupon-system3-147`.coupons where company_id= :companyId and price<= :maxPrice", nativeQuery = true)
+//    List<Coupon> findAllByCompanyIdAndMaxPrice(@Param("companyId") int companyId, @Param("maxPrice") double maxPrice);
+
+    List<Coupon> findAllByCompanyIdAndPriceLessThanEqual(int companyId, double price);
+
 
     @Query(value = "SELECT * FROM `coupon-system3-147`.customers_coupons cvc\n" +
             "join `coupon-system3-147`.coupons co\n" +
@@ -78,4 +81,12 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
             "right join `coupon-system3-147`.coupons c\n" +
             "on cc.coupons_id =c.id where company_id= :companyId and company_id <>0", nativeQuery = true)
     void deleteCouponAndPurchaseByCompanyId(@Param("companyId") int companyId);
+
+    List<Coupon> findAllByOrderByCompanyId();
+
+    List<Coupon> findAllByCategory(Category category);
+
+    List<Coupon> findAllByPriceLessThanEqual(double price);
+
+
 }

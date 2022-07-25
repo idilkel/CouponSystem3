@@ -115,7 +115,7 @@ public class CompanyServiceTests implements CommandLineRunner {
             TableUtils.drawCouponsBuffer(companyService3.getCompanyCoupons(3));
 
             HeadlineUtils.printHeadline2("Getting all the Coupons of logged-in company#3 from Travel Category");
-            TableUtils.drawCouponsBuffer(companyService3.getCompanyCoupons(3, Category.TRAVEL));
+            TableUtils.drawCouponsBuffer(companyService3.getCompanyCouponsByCategory(3, Category.TRAVEL));
 
             HeadlineUtils.printHeadline2("Getting all the Coupons of logged-in company#3 with maximum 100NIS");
             TableUtils.drawCouponsBuffer(companyService3.getCompanyCoupons(100));

@@ -2,6 +2,7 @@ package com.jb.CouponSystem3.beans;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class Company {
     @Column(nullable = false, length = 45)
     private String email;
     @Column(nullable = false, length = 45)
+    @Length(min = 4, max = 12)
     private String password;
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "company")
     @Singular

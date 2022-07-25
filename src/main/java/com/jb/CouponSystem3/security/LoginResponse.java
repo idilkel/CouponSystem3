@@ -17,9 +17,11 @@ public class LoginResponse {
     //    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
 //    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private Timestamp loginTime = Timestamp.valueOf(LocalDateTime.now());
+    private ClientType type;
 
-    public LoginResponse(UUID token, String email) {
+    public LoginResponse(UUID token, String email, ClientType type) {
         this.token = token;
         this.email = email;
+        this.type = type;
     }
 }

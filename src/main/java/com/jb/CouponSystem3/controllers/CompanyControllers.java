@@ -6,13 +6,15 @@ import com.jb.CouponSystem3.beans.Coupon;
 import com.jb.CouponSystem3.exceptions.CouponSecurityException;
 import com.jb.CouponSystem3.exceptions.CouponSystemException;
 import com.jb.CouponSystem3.exceptions.SecMsg;
-import com.jb.CouponSystem3.security.*;
+import com.jb.CouponSystem3.models.CouponPayLoad;
+import com.jb.CouponSystem3.security.ClientType;
+import com.jb.CouponSystem3.security.LoginManager;
+import com.jb.CouponSystem3.security.TokenManager;
 import com.jb.CouponSystem3.services.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,23 +22,23 @@ import java.util.UUID;
 @RequestMapping("api/companies")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-public class CompanyControllers extends ClientController {
+public class CompanyControllers {
 
     private final CompanyService companyService;
     private final TokenManager tokenManager;
     private final LoginManager loginManager;
 
-    // TODO: 30/06/2022 Should it really extend ClientController?
-    @Override
-    @PostMapping("login")
-    @ResponseStatus(HttpStatus.CREATED)
-    public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) {
-        String email = loginRequest.getEmail();
-        String password = loginRequest.getPassword();
-        ClientType type = loginRequest.getType();
-        UUID token = loginManager.loginUUID(email, password, type);
-        return new LoginResponse(token, email);
-    }
+//    // TODO: 30/06/2022 Should it really extend ClientController?
+//    @Override
+//    @PostMapping("login")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) {
+//        String email = loginRequest.getEmail();
+//        String password = loginRequest.getPassword();
+//        ClientType type = loginRequest.getType();
+//        UUID token = loginManager.loginUUID(email, password, type);
+//        return new LoginResponse(token, email);
+//    }
 
     @PostMapping("coupons")
     @ResponseStatus(HttpStatus.CREATED)
@@ -110,7 +112,7 @@ public class CompanyControllers extends ClientController {
         if (tokenManager.getType(token) != ClientType.COMPANY) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
         }
-        return companyService.getCompanyCoupons(companyId, category);
+        return companyService.getCompanyCouponsByCategory(companyId, category);
     }
 
     @GetMapping("coupons/price/max")
@@ -119,7 +121,7 @@ public class CompanyControllers extends ClientController {
         if (tokenManager.getType(token) != ClientType.COMPANY) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
         }
-        return companyService.getCompanyCoupons(companyId, value);
+        return companyService.getCompanyCouponsByMaxPrice(companyId, value);
     }
 
     @GetMapping("details")
@@ -131,6 +133,36 @@ public class CompanyControllers extends ClientController {
         return companyService.getCompanyDetails(companyId);
     }
 
+
+    //Testing company coupons with couponpayload
+    @GetMapping("coupons/payloadtest")
+    List<CouponPayLoad> getAllCouponPayloadsByCompanyId(@RequestHeader("Authorization") UUID token) throws CouponSecurityException {
+        int companyId = tokenManager.getUserId(token);
+        if (tokenManager.getType(token) != ClientType.COMPANY) {
+            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
+        }
+        return companyService.getAllCouponPayloadsByCompanyId(companyId);
+    }
+
+//    @GetMapping("idToName")
+//    public String convertIdToName(int companyId) throws CouponSecurityException, CouponSystemException {
+//        int companyId = tokenManager.getUserId(token);
+//        if (tokenManager.getType(token) != ClientType.COMPANY) {
+//            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
+//        }
+//        System.out.println("Company id:!!! " + companyId);
+//        return companyService.convertIdToName(companyId);
+//    }
+
+//    @GetMapping("idToName")
+//    public String convertIdToName(@RequestHeader("Authorization") UUID token) throws CouponSecurityException, CouponSystemException {
+//        int companyId = tokenManager.getUserId(token);
+//        if (tokenManager.getType(token) != ClientType.COMPANY) {
+//            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
+//        }
+//        System.out.println("Company id:!!! " + companyId);
+//        return companyService.convertIdToName(companyId);
+//    }
 
 //    Company getCompanyWoDetails() {
 //        return companyService.getCompanyWoDetails();

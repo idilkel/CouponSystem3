@@ -20,4 +20,5 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
     Company findTop1ByEmail(String email);
 
     List<Company> findAllByOrderById();
+
 }

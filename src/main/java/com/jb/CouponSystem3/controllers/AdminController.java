@@ -1,18 +1,21 @@
 package com.jb.CouponSystem3.controllers;
 
+import com.jb.CouponSystem3.beans.Category;
 import com.jb.CouponSystem3.beans.Company;
 import com.jb.CouponSystem3.beans.Coupon;
 import com.jb.CouponSystem3.beans.Customer;
 import com.jb.CouponSystem3.exceptions.CouponSecurityException;
 import com.jb.CouponSystem3.exceptions.CouponSystemException;
 import com.jb.CouponSystem3.exceptions.SecMsg;
-import com.jb.CouponSystem3.security.*;
+import com.jb.CouponSystem3.models.CouponPayLoad;
+import com.jb.CouponSystem3.security.ClientType;
+import com.jb.CouponSystem3.security.LoginManager;
+import com.jb.CouponSystem3.security.TokenManager;
 import com.jb.CouponSystem3.services.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,23 +23,23 @@ import java.util.UUID;
 @RequestMapping("api/admin")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-public class AdminController extends ClientController {
+public class AdminController {
     private final AdminService adminService;
     private final LoginManager loginManager;
     private final TokenManager tokenManager;
 
-    //todo: ask Kobi to do Login controller instead of clientcontroller - the login should return a uuid and not boolean
-    // TODO: Should be deleted from ClientController too. It is in LoginController
-    @Override
-    @PostMapping("login")
-    @ResponseStatus(HttpStatus.CREATED)
-    public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) {
-        String email = loginRequest.getEmail();
-        String password = loginRequest.getPassword();
-        ClientType type = loginRequest.getType();
-        UUID token = loginManager.loginUUID(email, password, type);
-        return new LoginResponse(token, email);
-    }
+//    //todo: ask Kobi to do Login controller instead of clientcontroller - the login should return a uuid and not boolean
+//    // TODO: Should be deleted from ClientController too. It is in LoginController
+//    @Override
+//    @PostMapping("login")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) {
+//        String email = loginRequest.getEmail();
+//        String password = loginRequest.getPassword();
+//        ClientType type = loginRequest.getType();
+//        UUID token = loginManager.loginUUID(email, password, type);
+//        return new LoginResponse(token, email);
+//    }
 
     @PostMapping("companies")
     @ResponseStatus(HttpStatus.CREATED)
@@ -138,5 +141,20 @@ public class AdminController extends ClientController {
     @GetMapping("coupons")
     List<Coupon> getAllCoupons(@RequestHeader("Authorization") UUID token) {
         return adminService.getAllCoupons();
+    }
+
+    @GetMapping("coupons/payloads")
+    List<CouponPayLoad> getAllCouponsPayLoads(@RequestHeader("Authorization") UUID token) {
+        return adminService.getAllCouponsPayloads();
+    }
+
+    @GetMapping("coupons/category")
+    List<Coupon> getAllCouponsByCategory(@RequestHeader("Authorization") UUID token, @RequestParam Category category) {
+        return adminService.getAllCouponsByCategory(category);
+    }
+
+    @GetMapping("coupons/price/max")
+    List<Coupon> getAllCouponsByMaxPrice(@RequestHeader("Authorization") UUID token, @RequestParam double value) {
+        return adminService.getAllCouponsByMaxPrice(value);
     }
 }
