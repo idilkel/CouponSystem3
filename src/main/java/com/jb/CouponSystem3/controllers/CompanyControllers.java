@@ -6,7 +6,6 @@ import com.jb.CouponSystem3.beans.Coupon;
 import com.jb.CouponSystem3.exceptions.CouponSecurityException;
 import com.jb.CouponSystem3.exceptions.CouponSystemException;
 import com.jb.CouponSystem3.exceptions.SecMsg;
-import com.jb.CouponSystem3.models.CouponPayLoad;
 import com.jb.CouponSystem3.security.ClientType;
 import com.jb.CouponSystem3.security.LoginManager;
 import com.jb.CouponSystem3.security.TokenManager;
@@ -135,14 +134,14 @@ public class CompanyControllers {
 
 
     //Testing company coupons with couponpayload
-    @GetMapping("coupons/payloadtest")
-    List<CouponPayLoad> getAllCouponPayloadsByCompanyId(@RequestHeader("Authorization") UUID token) throws CouponSecurityException {
-        int companyId = tokenManager.getUserId(token);
-        if (tokenManager.getType(token) != ClientType.COMPANY) {
-            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
-        }
-        return companyService.getAllCouponPayloadsByCompanyId(companyId);
-    }
+//    @GetMapping("coupons/payloadtest")
+//    List<CouponPayLoad> getAllCouponPayloadsByCompanyId(@RequestHeader("Authorization") UUID token) throws CouponSecurityException {
+//        int companyId = tokenManager.getUserId(token);
+//        if (tokenManager.getType(token) != ClientType.COMPANY) {
+//            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
+//        }
+//        return companyService.getAllCouponPayloadsByCompanyId(companyId);
+//    }
 
 //    @GetMapping("idToName")
 //    public String convertIdToName(int companyId) throws CouponSecurityException, CouponSystemException {

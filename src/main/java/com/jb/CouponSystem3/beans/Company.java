@@ -1,6 +1,6 @@
 package com.jb.CouponSystem3.beans;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -29,7 +29,8 @@ public class Company {
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "company")
     @Singular
     @ToString.Exclude
-    @JsonManagedReference
+    @JsonIgnore
+//    @JsonManagedReference
     private List<Coupon> coupons = new ArrayList<>();
 
     // TODO: 05/07/2022 Remove payload CTOR 
