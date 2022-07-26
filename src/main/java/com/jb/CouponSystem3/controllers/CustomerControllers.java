@@ -40,13 +40,13 @@ public class CustomerControllers {
 //    }
 
     @PostMapping("purchase")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void purchaseCoupon(@RequestHeader("Authorization") UUID token, @RequestBody Coupon coupon) throws CouponSecurityException, CouponSystemException {
+    @ResponseStatus(HttpStatus.CREATED) //returning coupon for redux frontend
+    public Coupon purchaseCoupon(@RequestHeader("Authorization") UUID token, @RequestBody Coupon coupon) throws CouponSecurityException, CouponSystemException {
         int customerId = tokenManager.getUserId(token);
         if (tokenManager.getType(token) != ClientType.CUSTOMER) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
         }
-        customerService.purchaseCoupon(customerId, coupon);
+        return customerService.purchaseCoupon(customerId, coupon);
     }
 
     @GetMapping("coupons")

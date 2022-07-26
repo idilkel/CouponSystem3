@@ -10,4 +10,8 @@ import lombok.NoArgsConstructor;
 public class ErrDetails {
     private String key;
     private String value;
+
+    public ErrDetails(String value) {
+        this.value = value;
+    }
 }

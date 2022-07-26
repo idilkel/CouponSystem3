@@ -41,22 +41,23 @@ public class CompanyControllers {
 
     @PostMapping("coupons")
     @ResponseStatus(HttpStatus.CREATED)
-    void addCoupon(@RequestHeader("Authorization") UUID token, @RequestBody Coupon coupon) throws CouponSystemException, CouponSecurityException {
+    Coupon addCoupon(@RequestHeader("Authorization") UUID token, @RequestBody Coupon coupon) throws CouponSystemException, CouponSecurityException {
         int companyId = tokenManager.getUserId(token);
         if (tokenManager.getType(token) != ClientType.COMPANY) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
         }
-        companyService.addCoupon(companyId, coupon);
+        return companyService.addCoupon(companyId, coupon);
+
     }
 
     @PutMapping("coupons/{couponId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    void updateCoupon(@RequestHeader("Authorization") UUID token, @PathVariable int couponId, @RequestBody Coupon coupon) throws CouponSystemException, CouponSecurityException {
+//    @ResponseStatus(HttpStatus.NO_CONTENT) //returns coupon
+    Coupon updateCoupon(@RequestHeader("Authorization") UUID token, @PathVariable int couponId, @RequestBody Coupon coupon) throws CouponSystemException, CouponSecurityException {
         int companyId = tokenManager.getUserId(token);
         if (tokenManager.getType(token) != ClientType.COMPANY) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
         }
-        companyService.updateCoupon(companyId, couponId, coupon);
+        return companyService.updateCoupon(companyId, couponId, coupon);
     }
 
     @DeleteMapping("coupons/{couponId}")

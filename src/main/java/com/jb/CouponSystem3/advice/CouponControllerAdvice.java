@@ -23,7 +23,8 @@ public class CouponControllerAdvice {
 
     @ExceptionHandler(value = CouponSecurityException.class)
     public ResponseEntity<?> handleSecException(CouponSecurityException e) {
-        return new ResponseEntity<>(e.getSecMsg().getMsg(), e.getSecMsg().getStatus());
+        ErrDetails errDetails = new ErrDetails("CaaS", e.getSecMsg().getMsg());
+        return new ResponseEntity<>(errDetails, e.getSecMsg().getStatus());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

@@ -50,18 +50,6 @@ public class Coupon {
     @Column(nullable = false, length = 45)
     private String image;
 
-    // TODO: 05/07/2022 Remove payload CTOR
-//    public Coupon(CouponPayLoad couponPayLoad) {
-//        this.company = couponPayLoad.getCompany();
-//        this.category = couponPayLoad.getCategory();
-//        this.title = couponPayLoad.getTitle();
-//        this.description = couponPayLoad.getDescription();
-//        this.startDate = couponPayLoad.getStartDate();
-//        this.endDate = couponPayLoad.getEndDate();
-//        this.amount = couponPayLoad.getAmount();
-//        this.price = couponPayLoad.getPrice();
-//        this.image = couponPayLoad.getImage();
-//    }
 
     //For comparison of the set on a unique base and to print coupon lists ordered by coupon id
     @Override

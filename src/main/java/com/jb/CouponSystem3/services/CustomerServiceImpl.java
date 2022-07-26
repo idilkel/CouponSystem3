@@ -58,7 +58,8 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
         customer.setCoupons(coupons);
         customerRepository.saveAndFlush(customer);
         coupon.setAmount(coupon.getAmount() - 1);
-        return couponRepository.saveAndFlush(coupon);
+        couponRepository.saveAndFlush(coupon);
+        return coupon;
     }
 
 

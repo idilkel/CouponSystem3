@@ -33,12 +33,5 @@ public class Company {
 //    @JsonManagedReference
     private List<Coupon> coupons = new ArrayList<>();
 
-    // TODO: 05/07/2022 Remove payload CTOR 
-//    public Company(CompanyPayLoad companyPayLoad) {
-//        this.name = companyPayLoad.getName();
-//        this.email = companyPayLoad.getEmail();
-//        this.password = companyPayLoad.getPassword();
-//        this.coupons = companyPayLoad.getCoupons();
-//    }
 
 }

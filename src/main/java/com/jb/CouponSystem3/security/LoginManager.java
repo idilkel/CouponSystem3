@@ -21,34 +21,26 @@ public class LoginManager {
     private final CustomerService customerService;
 
 
-    public UUID loginUUID(String email, String password, ClientType clientType) {
-        try {
-            switch (clientType) {
-                case ADMINISTRATOR:
-                    if (adminService.login(email, password)) {//If wrong, exception thrown
-                        UUID token = tokenManager.add(email, password, clientType);
-                        ClientType type = tokenManager.getType(token);
-                        return token;
-                    }
-                    break;
-                case COMPANY:
-                    if (companyService.login(email, password)) {//If wrong, exception thrown
-//                    CompanyService companyService = ctx.getBean(CompanyService.class);
-//                        System.out.println(companyService.login(email, password));//If wrong, exception thrown; Prints true on right login
-                        UUID token = tokenManager.add(email, password, clientType);
-                        return token;
-                    }
-                case CUSTOMER:
-                    if (customerService.login(email, password)) {//If wrong, exception thrown;
-//                    CustomerService customerService = ctx.getBean(CustomerService.class);
-//                    System.out.println(customerService.login(email, password));//If wrong, exception thrown; Prints true on right login
-                        UUID token = tokenManager.add(email, password, clientType);
-                        return token;
-                    }
-            }
-        } catch (CouponSecurityException e) {
-            //e.printStackTrace();
-            System.out.println(e.toString());
+    public UUID loginUUID(String email, String password, ClientType clientType) throws CouponSecurityException {
+
+        switch (clientType) {
+            case ADMINISTRATOR:
+                if (adminService.login(email, password)) {//If wrong, exception thrown
+                    UUID token = tokenManager.add(email, password, clientType);
+                    ClientType type = tokenManager.getType(token);
+                    return token;
+                }
+                break;
+            case COMPANY:
+                if (companyService.login(email, password)) {//If wrong, exception thrown
+                    UUID token = tokenManager.add(email, password, clientType);
+                    return token;
+                }
+            case CUSTOMER:
+                if (customerService.login(email, password)) {//If wrong, exception thrown;
+                    UUID token = tokenManager.add(email, password, clientType);
+                    return token;
+                }
         }
         return null;
     }
@@ -62,12 +54,10 @@ public class LoginManager {
                         return (AdminServiceImpl) adminService;
                     }
                     break;
-                case "COMPANY":
-//                    CompanyService companyService = ctx.getBean(CompanyService.class);
+                case "COMPANY"://
                     System.out.println(companyService.login(email, password));//If wrong, exception thrown; Prints true on right login
                     return (CompanyServiceImpl) companyService;
-                case "CUSTOMER":
-//                    CustomerService customerService = ctx.getBean(CustomerService.class);
+                case "CUSTOMER"://
                     System.out.println(customerService.login(email, password));//If wrong, exception thrown; Prints true on right login
                     return (CustomerServiceImpl) customerService;
             }

@@ -34,7 +34,8 @@ public class AdminServiceImpl extends ClientService implements AdminService {
         if (companyRepository.existsByNameOrEmail(company.getName(), company.getEmail())) {
             throw new CouponSystemException(ErrMsg.COMPANY_DETAILS_ALREADY_EXIST_EXCEPTION);
         }
-        return companyRepository.save(company);
+        companyRepository.save(company);
+        return company;
     }
 
     // TODO: 25/07/2022  //Last two lines were added to check the update company on React side
@@ -48,7 +49,8 @@ public class AdminServiceImpl extends ClientService implements AdminService {
         }
         List<Coupon> coupons = couponRepository.findByCompanyId(companyId);
         company.setCoupons(coupons);
-        return companyRepository.saveAndFlush(company);
+        companyRepository.saveAndFlush(company);
+        return company;
     }
 
     @Override
@@ -83,7 +85,8 @@ public class AdminServiceImpl extends ClientService implements AdminService {
         if (customerRepository.existsByIdOrEmail(customer.getId(), customer.getEmail())) {
             throw new CouponSystemException(ErrMsg.ID_OR_EMAIL_ALREADY_EXISTS_EXCEPTION);
         }
-        return customerRepository.save(customer);
+        customerRepository.save(customer);
+        return customer;
     }
 
     @Override
@@ -94,7 +97,8 @@ public class AdminServiceImpl extends ClientService implements AdminService {
         if (customerId != customer.getId()) {
             throw new CouponSystemException(ErrMsg.CANT_UPDATE);
         }
-        return customerRepository.saveAndFlush(customer);
+        customerRepository.saveAndFlush(customer);
+        return customer;
     }
 
     @Override
