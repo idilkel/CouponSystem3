@@ -21,4 +21,6 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
     List<Company> findAllByOrderById();
 
+    List<Company> findAllById(int companyId);
+
 }

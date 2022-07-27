@@ -40,6 +40,9 @@ public interface CompanyService {
     //For CompanyService tests
     Company getCompanyWoDetails(int companyId);
 
+    //For updating store
+    List<Company> getCompanyAsList(int companyId);
+
 //    List<CouponPayLoad> getAllCouponPayloadsByCompanyId(int companyId);
 
 //    String convertIdToName(int companyId) throws CouponSystemException;

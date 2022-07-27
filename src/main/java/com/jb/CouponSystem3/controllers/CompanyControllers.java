@@ -133,6 +133,15 @@ public class CompanyControllers {
         return companyService.getCompanyDetails(companyId);
     }
 
+    @GetMapping("currentAsList")
+    List<Company> getCompanyAsList(@RequestHeader("Authorization") UUID token) throws CouponSystemException, CouponSecurityException {
+        int companyId = tokenManager.getUserId(token);
+        if (tokenManager.getType(token) != ClientType.COMPANY) {
+            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
+        }
+        return companyService.getCompanyAsList(companyId);
+    }
+
 
     //Testing company coupons with couponpayload
 //    @GetMapping("coupons/payloadtest")
