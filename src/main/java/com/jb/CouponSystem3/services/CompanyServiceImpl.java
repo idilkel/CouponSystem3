@@ -157,7 +157,7 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
     @Override
     public List<Company> getCompanyAsList(int companyId) {
         List<Company> myCompany = companyRepository.findAllById(companyId);
-        return null;
+        return myCompany;
     }
 
 //    @Override
