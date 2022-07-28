@@ -27,17 +27,6 @@ public class CustomerControllers {
     private final TokenManager tokenManager;
     private final LoginManager loginManager;
 
-//    // TODO: 30/06/2022 Should it really extend ClientController?
-//    @Override
-//    @PostMapping("login")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) {
-//        String email = loginRequest.getEmail();
-//        String password = loginRequest.getPassword();
-//        ClientType type = loginRequest.getType();
-//        UUID token = loginManager.loginUUID(email, password, type);
-//        return new LoginResponse(token, email);
-//    }
 
     @PostMapping("purchase")
     @ResponseStatus(HttpStatus.CREATED) //returning coupon for redux frontend

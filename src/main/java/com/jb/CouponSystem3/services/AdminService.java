@@ -6,7 +6,7 @@ import com.jb.CouponSystem3.beans.Coupon;
 import com.jb.CouponSystem3.beans.Customer;
 import com.jb.CouponSystem3.exceptions.CouponSecurityException;
 import com.jb.CouponSystem3.exceptions.CouponSystemException;
-import com.jb.CouponSystem3.models.CouponPayLoad;
+import com.jb.CouponSystem3.models.NotCouponPayLoad;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public interface AdminService {
     //  A company shouldn't get other companies coupons (therefore this ability was transferred to the admin only)
     List<Coupon> getAllCoupons();
 
-    List<CouponPayLoad> getAllCouponsPayloads();
+    List<NotCouponPayLoad> getAllCouponsPayloads();
 
     List<Coupon> getAllCouponsByCategory(Category category);
 

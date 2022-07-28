@@ -7,7 +7,7 @@ import com.jb.CouponSystem3.beans.Customer;
 import com.jb.CouponSystem3.exceptions.CouponSecurityException;
 import com.jb.CouponSystem3.exceptions.CouponSystemException;
 import com.jb.CouponSystem3.exceptions.SecMsg;
-import com.jb.CouponSystem3.models.CouponPayLoad;
+import com.jb.CouponSystem3.models.NotCouponPayLoad;
 import com.jb.CouponSystem3.security.ClientType;
 import com.jb.CouponSystem3.security.LoginManager;
 import com.jb.CouponSystem3.security.TokenManager;
@@ -28,18 +28,6 @@ public class AdminController {
     private final LoginManager loginManager;
     private final TokenManager tokenManager;
 
-//    //todo: ask Kobi to do Login controller instead of clientcontroller - the login should return a uuid and not boolean
-//    // TODO: Should be deleted from ClientController too. It is in LoginController
-//    @Override
-//    @PostMapping("login")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) {
-//        String email = loginRequest.getEmail();
-//        String password = loginRequest.getPassword();
-//        ClientType type = loginRequest.getType();
-//        UUID token = loginManager.loginUUID(email, password, type);
-//        return new LoginResponse(token, email);
-//    }
 
     @PostMapping("companies")
     @ResponseStatus(HttpStatus.CREATED)
@@ -144,7 +132,7 @@ public class AdminController {
     }
 
     @GetMapping("coupons/payloads")
-    List<CouponPayLoad> getAllCouponsPayLoads(@RequestHeader("Authorization") UUID token) {
+    List<NotCouponPayLoad> getAllCouponsPayLoads(@RequestHeader("Authorization") UUID token) {
         return adminService.getAllCouponsPayloads();
     }
 

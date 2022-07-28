@@ -14,7 +14,7 @@ import javax.persistence.Enumerated;
 @AllArgsConstructor
 @Builder
 @Data
-public class CouponPayLoad {
+public class NotCouponPayLoad {
     private int id;
     private int companyId;
     @Enumerated(EnumType.STRING)
@@ -35,7 +35,7 @@ public class CouponPayLoad {
 
     private String image;
 
-    public CouponPayLoad(Coupon coupon) {
+    public NotCouponPayLoad(Coupon coupon) {
         this.companyId = coupon.getCompany().getId();
         this.category = coupon.getCategory();
         this.title = coupon.getTitle();

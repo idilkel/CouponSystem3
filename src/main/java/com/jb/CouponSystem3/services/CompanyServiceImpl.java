@@ -160,23 +160,6 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
         return myCompany;
     }
 
-//    @Override
-//    public List<CouponPayLoad> getAllCouponPayloadsByCompanyId(int companyId) {
-//        List<Coupon> coupons = couponRepository.findByCompanyId(companyId);
-//        List<CouponPayLoad> couponPayloads = new ArrayList<>();
-//        for (Coupon coupon : coupons) {
-//            couponPayloads.add(new CouponPayLoad(coupon));
-//        }
-//        return couponPayloads;
-//    }
-
-
-//    @Override
-//    public String convertIdToName(int companyId) throws CouponSystemException {
-//        Company company = companyRepository.findById(companyId).orElseThrow(() -> new CouponSystemException(ErrMsg.ID_DOES_NOT_EXIST_EXCEPTION));
-//        return company.getName();
-//    }
-
 
 }
 

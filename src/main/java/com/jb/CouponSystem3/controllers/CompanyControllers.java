@@ -27,17 +27,6 @@ public class CompanyControllers {
     private final TokenManager tokenManager;
     private final LoginManager loginManager;
 
-//    // TODO: 30/06/2022 Should it really extend ClientController?
-//    @Override
-//    @PostMapping("login")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) {
-//        String email = loginRequest.getEmail();
-//        String password = loginRequest.getPassword();
-//        ClientType type = loginRequest.getType();
-//        UUID token = loginManager.loginUUID(email, password, type);
-//        return new LoginResponse(token, email);
-//    }
 
     @PostMapping("coupons")
     @ResponseStatus(HttpStatus.CREATED)
@@ -141,37 +130,6 @@ public class CompanyControllers {
         }
         return companyService.getCompanyAsList(companyId);
     }
-
-
-    //Testing company coupons with couponpayload
-//    @GetMapping("coupons/payloadtest")
-//    List<CouponPayLoad> getAllCouponPayloadsByCompanyId(@RequestHeader("Authorization") UUID token) throws CouponSecurityException {
-//        int companyId = tokenManager.getUserId(token);
-//        if (tokenManager.getType(token) != ClientType.COMPANY) {
-//            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
-//        }
-//        return companyService.getAllCouponPayloadsByCompanyId(companyId);
-//    }
-
-//    @GetMapping("idToName")
-//    public String convertIdToName(int companyId) throws CouponSecurityException, CouponSystemException {
-//        int companyId = tokenManager.getUserId(token);
-//        if (tokenManager.getType(token) != ClientType.COMPANY) {
-//            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
-//        }
-//        System.out.println("Company id:!!! " + companyId);
-//        return companyService.convertIdToName(companyId);
-//    }
-
-//    @GetMapping("idToName")
-//    public String convertIdToName(@RequestHeader("Authorization") UUID token) throws CouponSecurityException, CouponSystemException {
-//        int companyId = tokenManager.getUserId(token);
-//        if (tokenManager.getType(token) != ClientType.COMPANY) {
-//            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
-//        }
-//        System.out.println("Company id:!!! " + companyId);
-//        return companyService.convertIdToName(companyId);
-//    }
 
 //    Company getCompanyWoDetails() {
 //        return companyService.getCompanyWoDetails();
