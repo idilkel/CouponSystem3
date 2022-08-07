@@ -7,7 +7,6 @@ import com.jb.CouponSystem3.beans.Customer;
 import com.jb.CouponSystem3.exceptions.CouponSecurityException;
 import com.jb.CouponSystem3.exceptions.CouponSystemException;
 import com.jb.CouponSystem3.exceptions.SecMsg;
-import com.jb.CouponSystem3.models.NotCouponPayLoad;
 import com.jb.CouponSystem3.security.ClientType;
 import com.jb.CouponSystem3.security.LoginManager;
 import com.jb.CouponSystem3.security.TokenManager;
@@ -131,10 +130,6 @@ public class AdminController {
         return adminService.getAllCoupons();
     }
 
-    @GetMapping("coupons/payloads")
-    List<NotCouponPayLoad> getAllCouponsPayLoads(@RequestHeader("Authorization") UUID token) {
-        return adminService.getAllCouponsPayloads();
-    }
 
     @GetMapping("coupons/category")
     List<Coupon> getAllCouponsByCategory(@RequestHeader("Authorization") UUID token, @RequestParam Category category) {

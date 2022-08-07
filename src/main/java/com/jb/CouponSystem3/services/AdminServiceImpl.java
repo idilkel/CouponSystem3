@@ -8,12 +8,10 @@ import com.jb.CouponSystem3.exceptions.CouponSecurityException;
 import com.jb.CouponSystem3.exceptions.CouponSystemException;
 import com.jb.CouponSystem3.exceptions.ErrMsg;
 import com.jb.CouponSystem3.exceptions.SecMsg;
-import com.jb.CouponSystem3.models.NotCouponPayLoad;
 import com.jb.CouponSystem3.security.TokenManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -125,15 +123,6 @@ public class AdminServiceImpl extends ClientService implements AdminService {
         return couponRepository.findAll();
     }
 
-    @Override
-    public List<NotCouponPayLoad> getAllCouponsPayloads() {
-        List<Coupon> coupons = couponRepository.findAllByOrderByCompanyId();
-        List<NotCouponPayLoad> couponPayloads = new ArrayList<>();
-        for (Coupon coupon : coupons) {
-            couponPayloads.add(new NotCouponPayLoad(coupon));
-        }
-        return couponPayloads;
-    }
 
     @Override
     public List<Coupon> getAllCouponsByCategory(Category category) {
