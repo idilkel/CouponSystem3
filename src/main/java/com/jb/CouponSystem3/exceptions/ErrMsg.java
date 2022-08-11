@@ -18,6 +18,7 @@ public enum ErrMsg {
     CANT_UPDATE_COUPON_COMPANY_ID("Can't update coupon company id exception"),
     COUPON_PURCHASE_EXCEPTION("Coupon purchase exception"),
     ID_DOES_NOT_EXIST_EXCEPTION("ID doesn't exist exception"),
+    COUPON_ID_DOES_NOT_EXIST_EXCEPTION("Coupon ID doesn't exist exception"),
     ID_ALREADY_EXISTS_EXCEPTION("ID already exists exception"),
     ID_OR_EMAIL_ALREADY_EXISTS_EXCEPTION("ID or email already exists exception"),
     COMPANY_ID_DOESNT_MATCH("The company ID doesn't match exception"),

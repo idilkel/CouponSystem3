@@ -38,7 +38,7 @@ public interface CompanyService {
     Company getCompanyDetails(int companyId) throws CouponSystemException;
 
     //For CompanyService tests
-    Company getCompanyWoDetails(int companyId);
+    Company getCompanyWoDetails(int companyId) throws CouponSystemException;
 
     //For updating store
     List<Company> getCompanyAsList(int companyId);
