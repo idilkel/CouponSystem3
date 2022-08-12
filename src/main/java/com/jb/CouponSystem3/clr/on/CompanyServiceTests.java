@@ -76,7 +76,7 @@ public class CompanyServiceTests implements CommandLineRunner {
             coupToUpdate.setEndDate(datePlus3);
             coupToUpdate.setAmount(200);
             coupToUpdate.setPrice(100);
-            coupToUpdate.setImage("XOXO");
+            coupToUpdate.setImage("https://i.imgur.com/8navmvP.jpg");
             companyService.updateCoupon(2, 2, coupToUpdate);
             System.out.println("Coupon#2 after update:");
             TableUtils.drawOneCouponBuffer(companyService.getOneCouponByIdAndCouponId(2, 2));
@@ -143,7 +143,7 @@ public class CompanyServiceTests implements CommandLineRunner {
             Company com3 = companyService3.getCompanyWoDetails(3);
             Coupon coupon = Coupon.builder().company(com3).category(Category.TRAVEL)
                     .title("20NIS Venice").description("20NIS flight to Venice")
-                    .startDate(startDate).endDate(datePlus2).amount(300).price(20).image("VNIC").build();
+                    .startDate(startDate).endDate(datePlus2).amount(300).price(20).image("https://i.imgur.com/f5md403.jpg").build();
             companyService3.addCoupon(3, coupon);
             System.out.println("Company#3 after adding a coupon");
             companyService3.getCompanyDetails(3);
@@ -166,7 +166,7 @@ public class CompanyServiceTests implements CommandLineRunner {
             Company com3 = companyService3.getCompanyWoDetails(3);
             Coupon coupon = Coupon.builder().company(com3).category(Category.TRAVEL)
                     .title("50% discount on shoes").description("Pay 50NIS get 100NIS")
-                    .startDate(startDate).endDate(datePlus2).amount(300).price(50).image("LESS").build();
+                    .startDate(startDate).endDate(datePlus2).amount(300).price(50).image("https://i.imgur.com/tv17Uj8.jpg").build();
             companyService3.addCoupon(3, coupon);
             System.out.println("Company#3 after adding a coupon");
             companyService3.getCompanyDetails(3);

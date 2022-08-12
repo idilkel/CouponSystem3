@@ -43,7 +43,7 @@ public class FillingMoreCouponsForFront implements CommandLineRunner {
             Company com3 = companyService3.getCompanyWoDetails(3);
             Coupon coupon1 = Coupon.builder().company(com3).category(Category.RESTAURANTS)
                     .title("Flight Meals").description("20NIS snacks")
-                    .startDate(startDate).endDate(datePlus2).amount(300).price(20).image("FOOD").build();
+                    .startDate(startDate).endDate(datePlus2).amount(300).price(20).image("https://i.imgur.com/15mVg4l.jpg").build();
             companyService3.addCoupon(3, coupon1);
             System.out.println("Company#3 after adding a coupon");
             companyService3.getCompanyDetails(3);

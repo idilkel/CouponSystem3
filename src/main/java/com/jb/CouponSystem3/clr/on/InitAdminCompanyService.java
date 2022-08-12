@@ -84,31 +84,31 @@ public class InitAdminCompanyService implements CommandLineRunner {
 
             Coupon coup1 = Coupon.builder().company(com1).category(Category.FASHION)
                     .title("50% discount on shoes").description("Pay 50NIS get 100NIS")
-                    .startDate(startDate).endDate(datePlus1).amount(20).price(50).image("XXXX").build();
+                    .startDate(startDate).endDate(datePlus1).amount(20).price(50).image("https://i.imgur.com/u651vzt.jpg").build();
 
             Coupon coup2 = Coupon.builder().company(com2).category(Category.RESTAURANTS)
                     .title("50% discount on Pizza").description("Pay 30NIS get 60NIS")
-                    .startDate(startDate).endDate(datePlus2).amount(100).price(30).image("YYYY").build();
+                    .startDate(startDate).endDate(datePlus2).amount(100).price(30).image("https://i.imgur.com/sD3DsoQ.jpg").build();
 
             Coupon coup3 = Coupon.builder().company(com3).category(Category.TRAVEL)
                     .title("10% discount on Flights").description("Pay 450NIS get 500NIS")
-                    .startDate(startDate).endDate(datePlus4).amount(1).price(450).image("ZZZZ").build();
+                    .startDate(startDate).endDate(datePlus4).amount(1).price(450).image("3333").build();
 
             Coupon coup4 = Coupon.builder().company(com4).category(Category.ENTERTAINMENT)
                     .title("1+1 on movies").description("Pay 40NIS for 2 tickets")
-                    .startDate(startDate).endDate(datePlus3).amount(200).price(40).image("AAAA").build();
+                    .startDate(startDate).endDate(datePlus3).amount(200).price(40).image("https://i.imgur.com/uq9Qrwi.jpg").build();
 
             Coupon coup5 = Coupon.builder().company(com3).category(Category.TRAVEL)
                     .title("10NIS Flights").description("10NIS to Europe")
-                    .startDate(startDate).endDate(datePlus3).amount(50).price(10).image("YESS").build();
+                    .startDate(startDate).endDate(datePlus3).amount(50).price(10).image("https://i.imgur.com/4FgwNVz.jpg").build();
 
             Coupon coup6 = Coupon.builder().company(com3).category(Category.ELECTRONICS)
                     .title("10NIS Earphones").description("10NIS SONY Earphones")
-                    .startDate(startDate).endDate(datePlus3).amount(30).price(10).image("EARP").build();
+                    .startDate(startDate).endDate(datePlus3).amount(30).price(10).image("https://i.imgur.com/8z95iGx.jpg").build();
 
             Coupon expCoup = Coupon.builder().company(com5).category(Category.ELECTRONICS)
                     .title("100NIS discount").description("100NIS discount at 20NIS")
-                    .startDate(expiredStartDate).endDate(expiredEndDate).amount(10).price(20).image("EXPR").build();
+                    .startDate(expiredStartDate).endDate(expiredEndDate).amount(10).price(20).image("https://i.imgur.com/nxSibfL.jpg").build();
 
             CompanyService companyService1 = (CompanyService) loginManager.login("nike@gmail.com", "nike1234", ClientType.COMPANY);
             companyService1.addCoupon(1, coup1);
