@@ -45,7 +45,7 @@ public class TokenManager {
 
         UUID token = UUID.randomUUID();
         map.put(token, information);
-        // TODO: 30/06/2022 Delete this print
+        // TODO: 30/06/2022 This print is for testing
         //for test
         System.out.println(map);
         System.out.println("----------------------");

@@ -130,7 +130,6 @@ public class CompanyServiceTests implements CommandLineRunner {
         HeadlineUtils.printHeadline("Logged-in as company#3 with CompanyService and checking various customized exceptions");
         try {
             HeadlineUtils.printHeadline2("Trying to get coupon#6 of company 4 with logged-in company#3");
-            // TODO: 19/06/2022 doesn't work?: since one can get coupons only by entering couponid and companyId
             TableUtils.drawOneCouponBuffer(companyService3.getOneCouponByIdAndCouponId(3, 6));
         } catch (CouponSystemException e) {
             //e.printStackTrace();

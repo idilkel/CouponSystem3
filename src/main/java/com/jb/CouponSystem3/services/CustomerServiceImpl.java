@@ -50,9 +50,7 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
             throw new CouponSystemException(ErrMsg.COUPON_ALREADY_PURCHASED_EXCEPTION);
         }
 
-//        Customer customer = customerRepository.getById(customerId);
-        Customer customer = customerRepository.findById(customerId).orElseThrow();
-        // TODO: 19/06/2022 If this customer purchases the coupon it must exist - no sense of throw above - hence the throw is empty
+        Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new CouponSystemException(ErrMsg.ID_DOES_NOT_EXIST_EXCEPTION));
         Set<Coupon> coupons = customer.getCoupons();
         coupons.add(coupon);
         customer.setCoupons(coupons);
@@ -105,27 +103,5 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
         return customerRepository.findById(customerId).orElseThrow((() -> new CouponSystemException(ErrMsg.ID_DOES_NOT_EXIST_EXCEPTION)));
     }
 
-//    @Override
-//    public CouponPayLoad purchaseCoupon(int customerId, CouponPayLoad coupon) throws CouponSystemException {
-//        if (coupon.getAmount() == 0) {
-//            throw new CouponSystemException(ErrMsg.NO_COUPONS_LEFT_EXCEPTION);
-//        }
-//        if ((coupon.getEndDate().compareTo(Date.valueOf(LocalDate.now()))) < 0) {
-//            throw new CouponSystemException(ErrMsg.COUPON_EXPIRED_EXCEPTION);
-//        }
-//        if (couponRepository.existsByCustomerIdAndCouponId(customerId, coupon.getId()) != 0) {
-//            throw new CouponSystemException(ErrMsg.COUPON_ALREADY_PURCHASED_EXCEPTION);
-//        }
-//
-////        Customer customer = customerRepository.getById(customerId);
-//        Customer customer = customerRepository.findById(customerId).orElseThrow();
-//        // TODO: 19/06/2022 If this customer purchases the coupon it must exist - no sense of throw above - hence the throw is empty
-//        Set<Coupon> coupons = customer.getCoupons();
-//        coupons.add(coupon);
-//        customer.setCoupons(coupons);
-//        customerRepository.saveAndFlush(customer);
-//        coupon.setAmount(coupon.getAmount() - 1);
-//        return couponRepository.saveAndFlush(coupon);
-//    }
 }
 

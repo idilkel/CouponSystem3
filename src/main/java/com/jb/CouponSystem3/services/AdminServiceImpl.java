@@ -56,11 +56,6 @@ public class AdminServiceImpl extends ClientService implements AdminService {
         if (!companyRepository.existsById(companyId)) {
             throw new CouponSystemException(ErrMsg.ID_DOES_NOT_EXIST_EXCEPTION);
         }
-        //Alternative for first deletion of coupon then the purchase within a loop - less efficient (instead of in one query with join as below)
-//        for (Coupon coupon : couponRepository.findByCompanyId(companyId)) {
-//            couponRepository.deleteById(coupon.getId());
-//            couponRepository.deleteCouponPurchase(coupon.getId());
-//        }
 
         //Only one query for coupons deletion from purchase table and from coupons table, with join table which can see also nulls on the purchases (by right join)
         couponRepository.deleteCouponAndPurchaseByCompanyId(companyId);

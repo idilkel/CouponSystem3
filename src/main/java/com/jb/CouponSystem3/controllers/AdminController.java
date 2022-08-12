@@ -31,7 +31,7 @@ public class AdminController {
     @PostMapping("companies")
     @ResponseStatus(HttpStatus.CREATED)
     Company addCompany(@RequestHeader("Authorization") UUID token, @RequestBody Company company) throws CouponSystemException, CouponSecurityException {
-        int adminId = tokenManager.getUserId(token);
+//        int adminId = tokenManager.getUserId(token);
         if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
         }
@@ -41,7 +41,7 @@ public class AdminController {
     @PutMapping("company/{id}")
 //    @ResponseStatus(HttpStatus.NO_CONTENT) //returns company
     Company updateCompany(@RequestHeader("Authorization") UUID token, @PathVariable int id, @RequestBody Company company) throws CouponSystemException, CouponSecurityException {
-        int adminId = tokenManager.getUserId(token);
+//        int adminId = tokenManager.getUserId(token);
         if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
         }
@@ -51,7 +51,7 @@ public class AdminController {
     @DeleteMapping("companies/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteCompany(@RequestHeader("Authorization") UUID token, @PathVariable int id) throws CouponSystemException, CouponSecurityException {
-        int adminId = tokenManager.getUserId(token);
+//        int adminId = tokenManager.getUserId(token);
         if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
         }
@@ -60,7 +60,7 @@ public class AdminController {
 
     @GetMapping("companies")
     List<Company> getAllCompanies(@RequestHeader("Authorization") UUID token) throws CouponSecurityException {
-        int adminId = tokenManager.getUserId(token);
+//        int adminId = tokenManager.getUserId(token);
         if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
         }
@@ -69,7 +69,6 @@ public class AdminController {
 
     @GetMapping("companies/{id}")
     Company getOneCompany(@RequestHeader("Authorization") UUID token, @PathVariable int id) throws CouponSystemException, CouponSecurityException {
-        int adminId = tokenManager.getUserId(token);
         if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
         }
@@ -80,7 +79,6 @@ public class AdminController {
     @PostMapping("customers")
     @ResponseStatus(HttpStatus.CREATED)
     Customer addCustomer(@RequestHeader("Authorization") UUID token, @RequestBody Customer customer) throws CouponSystemException, CouponSecurityException {
-        int adminId = tokenManager.getUserId(token);
         if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
         }
@@ -90,7 +88,6 @@ public class AdminController {
     @PutMapping("customers/{id}")
 //    @ResponseStatus(HttpStatus.NO_CONTENT) //returns customer
     Customer updateCustomer(@RequestHeader("Authorization") UUID token, @PathVariable int id, @RequestBody Customer customer) throws CouponSystemException, CouponSecurityException {
-        int adminId = tokenManager.getUserId(token);
         if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
         }
@@ -100,7 +97,6 @@ public class AdminController {
     @DeleteMapping("customers/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteCustomer(@RequestHeader("Authorization") UUID token, @PathVariable int id) throws CouponSystemException, CouponSecurityException {
-        int adminId = tokenManager.getUserId(token);
         if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
         }
@@ -109,7 +105,6 @@ public class AdminController {
 
     @GetMapping("customers")
     List<Customer> getAllCustomers(@RequestHeader("Authorization") UUID token) throws CouponSecurityException {
-        int adminId = tokenManager.getUserId(token);
         if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
         }
@@ -118,7 +113,6 @@ public class AdminController {
 
     @GetMapping("customers/{id}")
     Customer getOneCustomer(@RequestHeader("Authorization") UUID token, @PathVariable int id) throws CouponSystemException, CouponSecurityException {
-        int adminId = tokenManager.getUserId(token);
         if (tokenManager.getType(token) != ClientType.ADMINISTRATOR) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
         }

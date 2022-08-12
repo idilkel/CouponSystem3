@@ -107,14 +107,6 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
         if (coupon.getCompany().getId() != companyId) {//a company can get only the coupon of itself
             throw new CouponSystemException(ErrMsg.COMPANY_ID_DOESNT_MATCH);
         }
-        // TODO: 19/06/2022 Trying to get coupon#6 of company 4 with logged-in company#3 - doesn't work 
-
-//        if (!couponRepository.existsById(couponId)) {
-//            throw new CouponSystemException(ErrMsg.ID_DOES_NOT_EXIST_EXCEPTION);
-//        }
-//        if (couponRepository.getById(couponId).getCompany().getId() != companyId) {//a company can get only the coupon of itself
-//            throw new CouponSystemException(ErrMsg.COMPANY_ID_DOESNT_MATCH);
-//        }
         return couponRepository.findByIdAndCompanyId(couponId, companyId);
     }
 
@@ -123,7 +115,6 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
         return couponRepository.findByCompanyId(companyId);
     }
 
-    // TODO: 07/05/2022
     @Override
     public List<Coupon> getCompanyCouponsByCategory(int companyId, Category category) {
         return couponRepository.findAllByCompanyIdAndCategory(companyId, category);
@@ -152,7 +143,6 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
     public Company getCompanyWoDetails(int companyId) throws CouponSystemException {
         List<Coupon> coupons = couponRepository.findByCompanyId(companyId);
         Company company = companyRepository.findById(companyId).orElseThrow(() -> new CouponSystemException(ErrMsg.ID_DOES_NOT_EXIST_EXCEPTION));
-//        Company company = companyRepository.getById(companyId);
         return company;
     }
 

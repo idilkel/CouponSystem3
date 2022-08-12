@@ -82,8 +82,6 @@ public class TestCouponsRepos implements CommandLineRunner {
         System.out.println("Customer#3 after the coupon purchase");
         TableUtils.drawOneCustomerWithCouponsBuffer(customerRepository.getById(3));
 
-        // TODO: 23/05/2022 todo the purchase with the requested dao??? - don't think so. Purchase on the common table by is by set coupons
-
 
         System.out.println("----------Test delete coupon purchase----------------");
         System.out.println("---Test delete coupon purchase: customer#3 purchase of coupons#1 to be deleted-----");
