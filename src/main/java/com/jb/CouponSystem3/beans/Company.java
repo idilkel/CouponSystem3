@@ -5,6 +5,8 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +22,10 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(nullable = false, length = 45)
+    @NotBlank
     private String name;
     @Column(nullable = false, length = 45)
+    @Email
     private String email;
     @Column(nullable = false, length = 45)
     @Length(min = 4, max = 12)
@@ -30,7 +34,6 @@ public class Company {
     @Singular
     @ToString.Exclude
     @JsonIgnore
-//    @JsonManagedReference
     private List<Coupon> coupons = new ArrayList<>();
 
 

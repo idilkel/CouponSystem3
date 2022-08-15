@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.Objects;
 
 @Entity
@@ -21,8 +22,6 @@ public class Coupon {
     private int id;
 
     @ManyToOne
-    //(cascade = CascadeType.REMOVE)// fails to findAll after remove
-//    @JsonBackReference
     private Company company;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -32,18 +31,15 @@ public class Coupon {
     @Column(nullable = false, length = 45)
     private String description;
 
-    //    @JsonDeserialize(using = LocalDateDeserializer.class)
-//    @JsonSerialize(using = LocalDateSerializer.class)
-//    @JsonFormat(pattern = "yyyy-MM-dd")
+    //    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false)
     private java.sql.Date startDate;
 
-    //    @JsonDeserialize(using = LocalDateDeserializer.class)
-//    @JsonSerialize(using = LocalDateSerializer.class)
-//    @JsonFormat(pattern = "yyyy-MM-dd")
+    //    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false)
     private java.sql.Date endDate;
     @Column(nullable = false)
+    @Min(0)
     private int amount;
     @Column(nullable = false)
     private double price;
@@ -51,7 +47,7 @@ public class Coupon {
     private String image;
 
 
-    //For comparison of the set on a unique base and to print coupon lists ordered by coupon id
+    //For comparison of the set on a unique base
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

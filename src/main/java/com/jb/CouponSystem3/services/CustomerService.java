@@ -27,7 +27,7 @@ public interface CustomerService {
     //To get a coupon before purchasing on tests
     Coupon getOneCouponById(int customerId, int couponId) throws CouponSystemException;
 
-    //To test wih one customer
+    //To test with one customer
     Customer getOneCustomer(int customerId) throws CouponSystemException;
 
 //    CouponPayLoad purchaseCoupon(int customerId, CouponPayLoad coupon) throws CouponSystemException;

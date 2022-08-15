@@ -14,12 +14,9 @@ import java.util.UUID;
 public class LoginManager {
 
     private final AdminService adminService;
-
-    //    private final ApplicationContext ctx;
-    private final TokenManager tokenManager;
     private final CompanyService companyService;
     private final CustomerService customerService;
-
+    private final TokenManager tokenManager;
 
     public UUID loginUUID(String email, String password, ClientType clientType) throws CouponSecurityException {
 
@@ -45,7 +42,7 @@ public class LoginManager {
         return null;
     }
 
-    //This is required for testing the Services without a HTTP Client
+    //This is required for testing the Services without an HTTP Client
     public ClientService login(String email, String password, ClientType clientType) {
         try {
             switch (clientType.name()) {

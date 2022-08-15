@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class CouponSecurityException extends Exception {
 
-    private SecMsg secMsg;
+    private SecMsg secMsg; //in order to enable e.getSecMsg from outside
 
     public CouponSecurityException(SecMsg secMsg) {
         super(secMsg.getMsg());

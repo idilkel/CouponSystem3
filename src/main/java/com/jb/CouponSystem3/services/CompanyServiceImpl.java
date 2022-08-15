@@ -24,11 +24,6 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
     private final TokenManager tokenManager;
 
 
-//    public CompanyServiceImpl(String email) {
-////        this.companyId = companyRepository.getIdByEmail(email);
-//    }
-
-
     @Override
     public boolean login(String email, String password) throws CouponSecurityException {
         if (!companyRepository.existsByEmailAndPassword(email, password)) {

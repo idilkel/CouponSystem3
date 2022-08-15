@@ -10,6 +10,7 @@ import java.util.UUID;
 
 @Configuration
 public class MapConfig {
+    //Collection injection
     @Bean
     public Map<UUID, Information> map() {
         return new HashMap<>();

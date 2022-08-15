@@ -36,7 +36,7 @@ public class AdminServiceImpl extends ClientService implements AdminService {
         return company;
     }
 
-    // TODO: 25/07/2022  //Last two lines were added to check the update company on React side
+    //Last two lines were added to check the update company on React side
     @Override
     public Company updateCompany(int companyId, Company company) throws CouponSystemException {
         if (company.getId() != companyId) {

@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,7 +31,7 @@ public class CompanyControllers {
 
     @PostMapping("coupons")
     @ResponseStatus(HttpStatus.CREATED)
-    Coupon addCoupon(@RequestHeader("Authorization") UUID token, @RequestBody Coupon coupon) throws CouponSystemException, CouponSecurityException {
+    Coupon addCoupon(@RequestHeader("Authorization") UUID token, @Valid @RequestBody Coupon coupon) throws CouponSystemException, CouponSecurityException {
         int companyId = tokenManager.getUserId(token);
         if (tokenManager.getType(token) != ClientType.COMPANY) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
@@ -41,7 +42,7 @@ public class CompanyControllers {
 
     @PutMapping("coupons/{couponId}")
 //    @ResponseStatus(HttpStatus.NO_CONTENT) //returns coupon
-    Coupon updateCoupon(@RequestHeader("Authorization") UUID token, @PathVariable int couponId, @RequestBody Coupon coupon) throws CouponSystemException, CouponSecurityException {
+    Coupon updateCoupon(@RequestHeader("Authorization") UUID token, @PathVariable int couponId, @Valid @RequestBody Coupon coupon) throws CouponSystemException, CouponSecurityException {
         int companyId = tokenManager.getUserId(token);
         if (tokenManager.getType(token) != ClientType.COMPANY) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
@@ -77,24 +78,6 @@ public class CompanyControllers {
         return companyService.getOneCouponByIdAndCouponId(companyId, couponId);
     }
 
-    @GetMapping("coupons2/{couponId}")
-    Coupon getOneCouponByIdAndCouponId(@RequestHeader("Authorization") UUID token, @PathVariable int couponId) throws CouponSystemException, CouponSecurityException {
-        int companyId = tokenManager.getUserId(token);
-        if (tokenManager.getType(token) != ClientType.COMPANY) {
-            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
-        }
-        return companyService.getOneCouponByIdAndCouponId(companyId, couponId);
-    }
-
-    @GetMapping("coupons2")
-    List<Coupon> getCompanyCoupons(@RequestHeader("Authorization") UUID token) throws CouponSecurityException {
-        int companyId = tokenManager.getUserId(token);
-        if (tokenManager.getType(token) != ClientType.COMPANY) {
-            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
-        }
-        return companyService.getCompanyCoupons(companyId);
-    }
-
     @GetMapping("coupons/category")
     List<Coupon> getCompanyCouponsByCategory(@RequestHeader("Authorization") UUID token, @RequestParam Category category) throws CouponSecurityException {
         int companyId = tokenManager.getUserId(token);
@@ -122,6 +105,7 @@ public class CompanyControllers {
         return companyService.getCompanyDetails(companyId);
     }
 
+    //to get the company in the front as list for getting it's details for coupon adding if companyreducer is empty
     @GetMapping("currentAsList")
     List<Company> getCompanyAsList(@RequestHeader("Authorization") UUID token) throws CouponSystemException, CouponSecurityException {
         int companyId = tokenManager.getUserId(token);

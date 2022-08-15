@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Set;
 import java.util.UUID;
 
@@ -30,7 +31,7 @@ public class CustomerControllers {
 
     @PostMapping("purchase")
     @ResponseStatus(HttpStatus.CREATED) //returning coupon for redux frontend
-    public Coupon purchaseCoupon(@RequestHeader("Authorization") UUID token, @RequestBody Coupon coupon) throws CouponSecurityException, CouponSystemException {
+    public Coupon purchaseCoupon(@RequestHeader("Authorization") UUID token, @Valid @RequestBody Coupon coupon) throws CouponSecurityException, CouponSystemException {
         int customerId = tokenManager.getUserId(token);
         if (tokenManager.getType(token) != ClientType.CUSTOMER) {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
@@ -74,12 +75,6 @@ public class CustomerControllers {
         return customerService.getCustomerDetails(customerId);
     }
 
-//    @GetMapping("coupons/all")
-//    //To get all coupons for the customer purchases tests and other coupon related tests
-//    public Set<Coupon> getAllCoupons(@RequestHeader("Authorization") UUID token) throws CouponSecurityException {
-//        int customerId = tokenManager.getUserId(token);
-//        return customerService.getAllCoupons(customerId);
-//    }
 
     @GetMapping("coupons/{couponId}")
     //To get a coupon before purchasing on tests
@@ -89,16 +84,6 @@ public class CustomerControllers {
             throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
         }
         return customerService.getOneCouponById(customerId, couponId);
-    }
-
-    //To test with one customer
-    @GetMapping("details2")
-    public Customer getOneCustomer(@RequestHeader("Authorization") UUID token) throws CouponSecurityException, CouponSystemException {
-        int customerId = tokenManager.getUserId(token);
-        if (tokenManager.getType(token) != ClientType.CUSTOMER) {
-            throw new CouponSecurityException(SecMsg.INVALID_TOKEN);
-        }
-        return customerService.getOneCustomer(customerId);
     }
 
 

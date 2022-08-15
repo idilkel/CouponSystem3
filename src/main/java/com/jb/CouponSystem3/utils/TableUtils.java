@@ -4,9 +4,7 @@ import com.jb.CouponSystem3.beans.Company;
 import com.jb.CouponSystem3.beans.Coupon;
 import com.jb.CouponSystem3.beans.Customer;
 
-import java.util.Formatter;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class TableUtils {
     public static StringBuffer str1 = new StringBuffer();
@@ -120,7 +118,9 @@ public class TableUtils {
                 company.getId(), company.getName(), company.getEmail(), company.getPassword());
         System.out.print(str1);
         str1.setLength(0);
-        for (Coupon coupon : company.getCoupons()) {
+        List<Coupon> coupons = company.getCoupons();
+        Collections.sort(coupons, Comparator.comparingInt(Coupon::getId));
+        for (Coupon coupon : coupons) {
             System.out.printf(" %2d ", coupon.getId());
         }
         System.out.println();
