@@ -46,8 +46,8 @@ public class TokenManagerImpl implements TokenManager {
         UUID token = UUID.randomUUID();
         map.put(token, information);
         //for test
-        System.out.println(map);
-        System.out.println("----------------------");
+//        System.out.println(map);
+//        System.out.println("----------------------");
         return token;
     }
 
