@@ -16,7 +16,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("api/login")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class LoginController {
     private final LoginManager loginManager;
 
