@@ -24,7 +24,6 @@ public class LoginManager {
             case ADMINISTRATOR:
                 if (adminService.login(email, password)) {//If wrong, exception thrown
                     UUID token = tokenManager.add(email, password, clientType);
-                    ClientType type = tokenManager.getType(token);
                     return token;
                 }
                 break;
