@@ -7,7 +7,7 @@ import java.util.UUID;
 public interface TokenManager {
     UUID add(String email, String password, ClientType type) throws CouponSecurityException;
 
-    void removePreviousInstances(int userId);
+    void removePreviousInstances(int userId, ClientType type);
 
     int getUserId(UUID token) throws CouponSecurityException;
 

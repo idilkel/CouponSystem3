@@ -35,7 +35,7 @@ public class TokenManagerImpl implements TokenManager {
             userId = customerRepository.getIdByEmail(email);
         }
 
-        removePreviousInstances(userId);
+        removePreviousInstances(userId, type);
 
         Information information = new Information();
         information.setId(userId);
@@ -51,8 +51,8 @@ public class TokenManagerImpl implements TokenManager {
         return token;
     }
 
-    public void removePreviousInstances(int userId) {
-        map.entrySet().removeIf(ins -> ins.getValue().getId() == userId);
+    public void removePreviousInstances(int userId, ClientType type) {
+        map.entrySet().removeIf(ins -> (ins.getValue().getId() == userId && ins.getValue().getType() == type));
     }
 
     public int getUserId(UUID token) throws CouponSecurityException {
